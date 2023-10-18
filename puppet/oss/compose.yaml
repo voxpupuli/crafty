@@ -24,7 +24,6 @@ services:
     image: ${REGISTRY_PATH}/container-puppetdb:7.14.0
     hostname: puppetdb
     environment:
-      # - CERTNAME=puppetdb
       - USE_PUPPETSERVER=true
       - PUPPETSERVER_HOSTNAME=puppet
       - PUPPETSERVER_PORT=8140
