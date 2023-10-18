@@ -5,14 +5,12 @@ services:
     image: ${REGISTRY_PATH}/container-puppetserver:7.13.0
     hostname: puppet
     environment:
-      # - CERTNAME=puppet
       - PUPPETSERVER_HOSTNAME=puppet
       - PUPPETSERVER_PORT=8140
       - PUPPET_MASTERPORT=8140
-      # - PUPPETSERVER_LOG_LEVEL=info
-      # - PUPPETDB_HOSTNAME=puppetdb
-      # - PUPPETDB_SSL_PORT=8081
-      - USE_PUPPETDB=false
+      - PUPPETDB_HOSTNAME=puppetdb
+      - PUPPETDB_SSL_PORT=8081
+      - USE_PUPPETDB=true
       - AUTOSIGN=true
       # For private repos, use git@github.com:user/repo.git and provide SSH keys
       # - R10K_REMOTE=https://github.com/betadots/demo-control-repo.git
@@ -26,59 +24,58 @@ services:
     ports:
       - 8140:8140
 
-  # puppetdb:
-  #   image: ${REGISTRY_PATH}/container-puppetdb:7.14.0
-  #   hostname: puppetdb
-  #   environment:
-  #     - CERTNAME=puppetdb
-  #     - PUPPETDB_SSL_PORT=8081
-  #     - PUPPETDB_LOG_LEVEL=info
-  #     - USE_PUPPETSERVER=true
-  #     - PUPPETSERVER_HOSTNAME=puppet
-  #     - PUPPETSERVER_PORT=8140
-  #     - PUPPETDB_POSTGRES_HOSTNAME=postgres
-  #     - PUPPETDB_POSTGRES_PORT=5432
-  #     - PUPPETDB_PASSWORD=puppetdb
-  #     - PUPPETDB_USER=puppetdb
-  #   volumes:
-  #     - puppetdb:/opt/puppetlabs/server/data/puppetdb
-  #   restart: always
-  #   ports:
-  #     - 8081:8081
-  #   expose:
-  #     - 8080
-  #   depends_on:
-  #     - postgres
-  #     - puppet
+  puppetdb:
+    image: ${REGISTRY_PATH}/container-puppetdb:7.14.0
+    hostname: puppetdb
+    environment:
+      # - CERTNAME=puppetdb
+      - USE_PUPPETSERVER=true
+      - PUPPETSERVER_HOSTNAME=puppet
+      - PUPPETSERVER_PORT=8140
+      - PUPPETDB_SSL_PORT=8081
+      - PUPPETDB_POSTGRES_HOSTNAME=postgres
+      - PUPPETDB_POSTGRES_PORT=5432
+      - PUPPETDB_PASSWORD=${POSTGRES_PASSWORD:-puppetdb}
+      - PUPPETDB_USER=${POSTGRES_USER:-puppetdb}
+    # volumes:
+    #   - puppetdb:/opt/puppetlabs/server/data/puppetdb
+    restart: always
+    ports:
+      - 8081:8081
+    expose:
+      - 8080
+    depends_on:
+      - postgres
+      - puppet
 
-  # postgres:
-  #   image: docker.io/postgres:16.0-alpine
-  #   hostname: postgres
-  #   environment:
-  #     # to be able to preload certs, PGDATA must be empty when booting, so set
-  #     # its directory as a subdirectory of the default /var/lib/postgresql/data VOLUME
-  #     - PGDATA=/var/lib/postgresql/data/pgdata
-  #     - PGPORT=5432
-  #     - SSLDIR=/var/lib/postgresql/data/certs
-  #     - CERTNAME=postgres
-  #     - POSTGRES_USER=${POSTGRES_USER:-puppetdb}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-puppetdb}
-  #     - POSTGRES_DB=${POSTGRES_DB:-puppetdb}
-  #     - PUPPETSERVER_HOSTNAME=puppet
-  #     - PUPPETSERVER_PORT=8140
-  #     - PUPPETDB_CERTNAME=puppetdb
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
-  #     interval: 10s
-  #     timeout: 3s
-  #     retries: 3
-  #   volumes:
-  #     - puppetdb-postgres:/var/lib/postgresql/data
-  #   restart: always
-  #   expose:
-  #     - 5432
-  #   depends_on:
-  #     - puppet
+  postgres:
+    image: docker.io/postgres:16.0-alpine
+    hostname: postgres
+    environment:
+      # to be able to preload certs, PGDATA must be empty when booting, so set
+      # its directory as a subdirectory of the default /var/lib/postgresql/data VOLUME
+      # - PGDATA=/var/lib/postgresql/data/pgdata
+      # - PGPORT=5432
+      # - SSLDIR=/var/lib/postgresql/data/certs
+      # - CERTNAME=postgres
+      - POSTGRES_DB=${POSTGRES_DB:-puppetdb}
+      - POSTGRES_USER=${POSTGRES_USER:-puppetdb}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-puppetdb}
+      # - PUPPETSERVER_HOSTNAME=puppet
+      # - PUPPETSERVER_PORT=8140
+      # - PUPPETDB_CERTNAME=puppetdb
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    # volumes:
+    #   - puppetdb-postgres:/var/lib/postgresql/data
+    restart: always
+    expose:
+      - 5432
+    depends_on:
+      - puppet
 
 networks:
   default:
