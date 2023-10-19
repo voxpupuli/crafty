@@ -16,7 +16,7 @@ The build system watches for tags which begin with a 7 for puppet7-release and 8
 
 # Update a container
 
-If you wana rebuild the container, or apply some updates from the build system, you can do it like this:
+If you want to rebuild a container, or apply some updates from the build system, you can do it like this:
 
 ```bash
 git pull -r
@@ -25,5 +25,5 @@ git tag 7.13.0
 git push -f --tags
 ```
 
-First pull the latest updates. Then delete the tag you want to update and apply the tag anew with the same namen.
+First pull the latest updates. Then delete the tag you want to update and apply the tag anew with the same name.
 Finally you have to push the new tag, but since you changed the references for the tag, you have to force push it.
