@@ -7,7 +7,6 @@ services:
     environment:
       - PUPPETSERVER_HOSTNAME=puppet
       - PUPPETSERVER_PORT=8140
-      - PUPPET_MASTERPORT=8140
       - PUPPETDB_HOSTNAME=puppetdb
       - PUPPETDB_SSL_PORT=8081
       - USE_PUPPETDB=true
