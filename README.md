@@ -10,3 +10,7 @@ We use the images from [voxpupuli/puppetserver](https://github.com/voxpupuli/con
 ## How to release a container
 
 see [docs/how-to-release.md](docs/how-to-release.md)
+
+## Contributing
+
+see [CONTRIBUTING.md](CONTRIBUTING.md)
