@@ -7,6 +7,7 @@ PRs are very welcome!
 - create a fork
 - create a branch
 - do your thing
+- [Please sign all your commits](https://docs.github.com/de/authentication/managing-commit-signature-verification)
 - create a PR
   - reference issues if applicable
 
