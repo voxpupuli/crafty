@@ -12,3 +12,5 @@ CHANGELOG_GITHUB_TOKEN="token_MC_tokenface" bundle exec github_changelog_generat
 git commit -am 'Release v1.0.0'
 git push origin release-v1.0.0
 ```
+
+Then open a PR, discuss and mrege.
