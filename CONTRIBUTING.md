@@ -4,14 +4,14 @@ PRs are very welcome!
 
 ## Adding code
 
-- create a fork
-- create a branch
-- do your thing
+- Create a fork
+- Create a branch
+- Do your thing
 - [Please sign all your commits](https://docs.github.com/de/authentication/managing-commit-signature-verification)
-- create a PR
-  - reference issues if applicable
+- Create a PR
+  - Reference issues if applicable
 
 ## Found a bug?
 
-- please open an issue
-- if you are able to fix it you also can open a PR (see above)
+- Please open an issue
+- If you are able to fix it you also can open a PR (see above)
