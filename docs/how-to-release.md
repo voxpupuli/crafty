@@ -23,7 +23,6 @@ git tag v1.0.0
 git push --tags
 ```
 
-
 # Tags
 
 Each puppetserver and puppetdb is accompanied by a build_versions.json file containing information about puppet releases and versions built when a tag is pushed or a change is made to the main branch.
