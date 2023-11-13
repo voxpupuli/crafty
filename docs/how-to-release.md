@@ -12,7 +12,7 @@ CHANGELOG_GITHUB_TOKEN="token_MC_tokenface" bundle exec github_changelog_generat
 git commit -am 'Release v1.0.0'
 git push origin release-v1.0.0
 ```
-Then open a PR, discuss and mrege.
+Then open a PR, discuss and merge.
 
 After the merge, as a maintainer on upstream do:
 
@@ -26,8 +26,6 @@ git push --tags
 
 # Tags
 
-each puppetserver and puppetdb have a build_versions.json. There in are the puppet releases and versions which are build if a tag is pushed. Or a change to main.
+Each puppetserver and puppetdb is accompanied by a build_versions.json file containing information about puppet releases and versions built when a tag is pushed or a change is made to the main branch.
 
-We will break with the tags in the past and now devide the container tag from the puppet version. The new tags will be like `v1.0.0`.
-The build ci runs in a matrix based on the json file and building the versions mentioned in there. Resulting in two docker tags 1.0.0-7 and 1.0.0-8 atm.
-`-7` is the puppet release 7 build and `-8` is 8.
+To enhance clarity and organization, we are transitioning from our previous tagging approach and will now distinguish the container tag from the puppet version. The new tags will follow the format v1.0.0. The CI build process operates within a matrix, leveraging the data from the JSON file to construct the specified versions. As a result, two Docker tags are currently generated: 1.0.0-7 corresponds to the Puppet Release 7 build, while 1.0.0-8 aligns with Release 8. These tags offer a more streamlined and informative representation of our build versions.
