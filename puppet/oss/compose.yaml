@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   puppet:
-    image: ${REGISTRY_PATH}/container-puppetserver:7.13.0
+    image: ${REGISTRY_PATH}/container-puppetserver:main-7
     hostname: puppet
     environment:
       - PUPPETSERVER_HOSTNAME=puppet
@@ -20,7 +20,7 @@ services:
       - 8140:8140
 
   puppetdb:
-    image: ${REGISTRY_PATH}/container-puppetdb:7.14.0
+    image: ${REGISTRY_PATH}/container-puppetdb:main-7
     hostname: puppetdb
     environment:
       - USE_PUPPETSERVER=true
