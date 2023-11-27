@@ -7,7 +7,7 @@
 
 ### puppet/oss
 In [puppet/oss](puppet/oss) we bundle puppetserver, puppetdb, postgres and puppetboard together.
-We use the images from [voxpupuli/puppetserver](https://github.com/voxpupuli/container-puppetserver), [voxpupuli/puppetdb](https://github.com/voxpupuli/container-puppetdb) and [voxpupuli/puppetboard](https://github.com/voxpupuli/puppetboard) for this. For the postgres we use upstream `postgres:16-alpine`.
+We use the images from [voxpupuli/puppetserver](https://github.com/voxpupuli/container-puppetserver), [voxpupuli/puppetdb](https://github.com/voxpupuli/container-puppetdb) and [voxpupuli/puppetboard](https://github.com/voxpupuli/puppetboard) for this. For PostgreSQL we use `postgres:16-alpine`.
 
 #### Verify the setup
 
