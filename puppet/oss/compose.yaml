@@ -41,7 +41,7 @@ services:
       - puppet
 
   postgres:
-    image: docker.io/postgres:16.1-alpine
+    image: docker.io/postgres:16-alpine
     hostname: postgres
     environment:
       - POSTGRES_DB=${POSTGRES_DB:-puppetdb}
