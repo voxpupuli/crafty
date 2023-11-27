@@ -58,6 +58,20 @@ services:
     expose:
       - 5432
 
+  puppetboard:
+    image: ${REGISTRY_PATH}/puppetboard:latest
+    hostname: puppetboard
+    environment:
+      - PUPPETDB_HOST=puppetdb
+      - PUPPETDB_PORT=8080
+      - PUPPETBOARD_PORT=8088
+      - SECRET_KEY=628c4e02daaaca2b90242491f607d3704153d424f215ac51b1dd873055e102a5  # Long random String : python3 -c 'import secrets; print(secrets.token_hex())'
+    restart: always
+    ports:
+      - 8088:8088
+    depends_on:
+      - puppetdb
+
 networks:
   default:
     name: crafty-oss
