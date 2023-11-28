@@ -9,6 +9,24 @@
 In [puppet/oss](puppet/oss) we bundle puppetserver, puppetdb, postgres and puppetboard together.
 We use the images from [voxpupuli/puppetserver](https://github.com/voxpupuli/container-puppetserver), [voxpupuli/puppetdb](https://github.com/voxpupuli/container-puppetdb) and [voxpupuli/puppetboard](https://github.com/voxpupuli/puppetboard) for this. For PostgreSQL we use `postgres:16-alpine`.
 
+#### Generate additional certificates
+
+After the puppet stack is running, execute the following commant to generate an additional certificate.
+It will be put in the puppetserver-ssl volume, or any other volume you may have mounted for `/etc/puppetlabs/puppet/ssl`.
+
+```bash
+docker exec oss-puppet-1 puppetserver ca generate --certname puppetboard
+```
+
+Output:
+```
+Successfully saved private key for puppetboard to /etc/puppetlabs/puppet/ssl/private_keys/puppetboard.pem
+Successfully saved public key for puppetboard to /etc/puppetlabs/puppet/ssl/public_keys/puppetboard.pem
+Successfully submitted certificate request for puppetboard
+Successfully saved certificate for puppetboard to /etc/puppetlabs/puppet/ssl/certs/puppetboard.pem
+Certificate for puppetboard was autosigned.
+```
+
 #### Verify the setup
 
 Run an agent against the new environment. After the run you should see a node in the puppetboard.
