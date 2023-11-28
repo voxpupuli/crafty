@@ -27,6 +27,17 @@ Successfully saved certificate for puppetboard to /etc/puppetlabs/puppet/ssl/cer
 Certificate for puppetboard was autosigned.
 ```
 
+One can then mount the puppetserver-ssl or whatever mount one have to the additional container, which shall use the certs.
+But in general this is a bad idea, but for testing this might work.
+
+For the puppetboard, one also can specify the certs as base64 strings. To get the strings do:
+
+```
+docker exec oss-puppet-1 cat /etc/puppetlabs/puppet/ssl/certs/ca.pem | base64
+docker exec oss-puppet-1 cat /etc/puppetlabs/puppet/ssl/certs/puppetboard.pem | base64
+docker exec oss-puppet-1 cat /etc/puppetlabs/puppet/ssl/private_keys/puppetboard.pem | base64
+```
+
 #### Verify the setup
 
 Run an agent against the new environment. After the run you should see a node in the puppetboard.
