@@ -15,6 +15,8 @@ services:
       # - R10K_REMOTE=https://github.com/betadots/demo-control-repo.git
     volumes:
       - puppetserver:/opt/puppetlabs/server/data/puppetserver
+      - puppetserver-ssl:/etc/puppetlabs/puppet/ssl
+      - puppetserver-ca:/etc/puppetlabs/puppetserver/ca
     restart: always
     ports:
       - 8140:8140
@@ -63,9 +65,17 @@ services:
     hostname: puppetboard
     environment:
       - PUPPETDB_HOST=puppetdb
-      - PUPPETDB_PORT=8080
+      # - PUPPETDB_PORT=8081 # use this for TLS
+      - PUPPETDB_PORT=8080  # Use this for non-TLS
       - PUPPETBOARD_PORT=8088
       - SECRET_KEY=628c4e02daaaca2b90242491f607d3704153d424f215ac51b1dd873055e102a5  # Long random String : python3 -c 'import secrets; print(secrets.token_hex())'
+      # if you wanna use SSL, you need to provide the following variables
+      # see the README.md for more information, look for "Generate additional certificates"
+    #   - PUPPETDB_SSL_VERIFY=/etc/puppetlabs/puppet/ssl/certs/ca.pem
+    #   - PUPPETDB_KEY=/etc/puppetlabs/puppet/ssl/private_keys/puppetboard.pem
+    #   - PUPPETDB_CERT=/etc/puppetlabs/puppet/ssl/certs/puppetboard.pem
+    # volumes:
+    #   - puppetserver-ssl:/etc/puppetlabs/puppet/ssl
     restart: always
     ports:
       - 8088:8088
@@ -78,5 +88,7 @@ networks:
 
 volumes:
   puppetserver:
+  puppetserver-ssl:
+  puppetserver-ca:
   puppetdb:
   puppetdb-postgres:
