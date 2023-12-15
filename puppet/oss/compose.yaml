@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   puppet:
-    image: ${REGISTRY_PATH}/container-puppetserver:main-7
+    image: ${REGISTRY_PATH}/container-puppetserver:v1.1.1-7
     hostname: puppet
     environment:
       - PUPPETSERVER_HOSTNAME=puppet
@@ -22,7 +22,8 @@ services:
       - 8140:8140
 
   puppetdb:
-    image: ${REGISTRY_PATH}/container-puppetdb:main-7
+    image: ${REGISTRY_PATH}/container-puppetdb:v1.2.0-7
+    #image: tuxmea/puppetdb:latest
     hostname: puppetdb
     environment:
       - USE_PUPPETSERVER=true
@@ -56,6 +57,7 @@ services:
       retries: 3
     volumes:
       - puppetdb-postgres:/var/lib/postgresql/data
+      - ./postgresql_init:/docker-entrypoint-initdb.d
     restart: always
     expose:
       - 5432
