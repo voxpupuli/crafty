@@ -23,7 +23,6 @@ services:
 
   puppetdb:
     image: ${REGISTRY_PATH}/container-puppetdb:v1.2.0-7
-    #image: tuxmea/puppetdb:latest
     hostname: puppetdb
     environment:
       - USE_PUPPETSERVER=true
