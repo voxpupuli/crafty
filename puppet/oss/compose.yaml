@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   puppet:
-    image: ${REGISTRY_PATH}/container-puppetserver:v1.1.1-7
+    image: ${REGISTRY_PATH}/container-puppetserver:v1.1.2-7
     hostname: puppet
     environment:
       - PUPPETSERVER_HOSTNAME=puppet
