@@ -9,6 +9,7 @@ PRs are very welcome!
 - Do your thing
 - [Please sign all your commits](https://docs.github.com/de/authentication/managing-commit-signature-verification)
 - Create a PR
+  - Please add PR to the project [Crafty Overview](https://github.com/orgs/voxpupuli/projects/8/views/1)
   - Reference issues if applicable
 
 ## Found a bug?
