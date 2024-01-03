@@ -27,7 +27,7 @@ git push --tags
 
 Each puppetserver and puppetdb is accompanied by a build_versions.json file containing information about puppet releases and versions built when a tag is pushed or a change is made to the main branch.
 
-To enhance clarity and organization, we are transitioning from our previous tagging approach and will now distinguish the container tag from the puppet version. The new tags will follow the format v1.0.0. The CI build process operates within a matrix, leveraging the data from the JSON file to construct the specified versions. As a result, two Docker tags are currently generated: v7.13.0-1.0.0 corresponds to the Puppet Release 7.13.0 build with container version 1.0.0, while v8.10.0-1.0.0 aligns with Release 8.10.0. These tags offer a more streamlined and informative representation of our build versions.
+To enhance clarity and organization, we are transitioning from our previous tagging approach and will now distinguish the container tag from the puppet version. The new tags will follow the format v1.0.0. The CI build process operates within a matrix, leveraging the data from the JSON file to construct the specified versions. As a result, two Docker tags are currently generated: v7.13.0-v1.0.0 corresponds to the Puppet Release 7.13.0 build with container version 1.0.0, while v8.10.0-v1.0.0 aligns with Release 8.10.0. These tags offer a more streamlined and informative representation of our build versions.
 
 The container tags `v7.13.0-main` and `v8.10.0-main` are built automatically whenever changes are merged into the Git main branch. It's important to note that these tags are designated as development tags and might be subject to breakage, so exercise caution when using them.
 
