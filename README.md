@@ -9,6 +9,29 @@ To see open issues and things which are in progress see:
 [Crafty Overview](https://github.com/orgs/voxpupuli/projects/8/views/1).
 This will give you a view over puppetdb, puppetserver and crafty itself.
 
+## New version schema
+
+The new version schema has the following layout:
+
+```text
+<puppet.major>.<puppet.minor>.<puppet.patch>-v<container.major>.<container.minor>.<container.patch>
+```
+
+Example usage:
+
+```shell
+docker run --name puppet --hostname puppet -v ./code:/etc/puppetlabs/code/ ghcr.io/voxpupuli/container-puppetserver:7.13.0-v1.1.3
+docker run --link postgres:postgres --link puppet:puppet ghcr.io/voxpupuli/puppetdb:7.13.0-v1.2.1
+```
+
+| Name | Description |
+| --- | --- |
+| puppet.major | Describes the contained major Puppet version (7 or 8) |
+| puppet.minor | Describes the contained minor Puppet version |
+| puppet.patch | Describes the contained patchlevel Puppet version |
+| container.major | Describes the major version of the base container (Ubunutu 22.04) or incompatible changes |
+| container.minor | Describes new features or refactoring with backward compatibility |
+| container.patch | Describes if minor changes or bugfixes have been implemented |
 ## Compose Examples
 
 ### puppet/oss
