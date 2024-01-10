@@ -1,0 +1,23 @@
+---
+name: "General CI 🚦🚥"
+
+on:
+  workflow_call:
+    inputs:
+      shellcheck_scan_dir:
+        description: "Dir to scan for shell scripts."
+        required: true
+        default: './bin/'
+        type: "string"
+
+jobs:
+  shellcheck:
+    name: 'Shell Check'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run ShellCheck for ${{ inputs.shellcheck_scan_dir }}
+      uses: ludeeus/action-shellcheck@2.0.0
+      with:
+        scandir: ${{ inputs.shellcheck_scan_dir }}
