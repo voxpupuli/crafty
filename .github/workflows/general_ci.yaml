@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Run ShellCheck for ${{ inputs.shellcheck_scan_dir }}
-      uses: ludeeus/action-shellcheck@2.0.0
+    - name: Differential ShellCheck
+      uses: redhat-plumbers-in-action/differential-shellcheck@v5
       with:
-        scandir: ${{ inputs.shellcheck_scan_dir }}
+        scan-directory: ${{ inputs.shellcheck_scan_dir }}
