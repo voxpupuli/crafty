@@ -32,6 +32,7 @@ docker run --link postgres:postgres --link puppet:puppet ghcr.io/voxpupuli/puppe
 | container.major | Describes the major version of the base container (Ubunutu 22.04) or incompatible changes |
 | container.minor | Describes new features or refactoring with backward compatibility |
 | container.patch | Describes if minor changes or bugfixes have been implemented |
+
 ## Compose Examples
 
 ### puppet/oss
@@ -78,6 +79,12 @@ The puppetserver and puppetdb are not visible. They only have certificates from 
 # on ARM64 set the platform, on AMD64 you might drop it
 docker run -it --network crafty-oss --platform linux/amd64 ghcr.io/betadots/pdc:development puppet agent -t
 ```
+
+### puppet/ha
+
+In our [puppet/ha](puppet/ha) configuration, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three Puppet compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
+
+For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/ha/README.md).
 
 ## How to release a container
 

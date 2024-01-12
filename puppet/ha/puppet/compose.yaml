@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  ca:
+    image: ghcr.io/voxpupuli/container-puppetserver:8.3.0-latest
+    hostname: puppet-ca
+    environment:
+      PUPPETSERVER_HOSTNAME: puppet-ca
+      USE_PUPPETDB: false
+      CA_ENABLED: true
+      CA_ALLOW_SUBJECT_ALT_NAMES: true
+    volumes:
+      - ./data/puppetserver-code:/etc/puppetlabs/code
+      - ./data/puppet-ca-ssl:/etc/puppetlabs/puppet/ssl
+      - ./data/puppet-ca:/etc/puppetlabs/puppetserver/ca
+    restart: always
+
+  compiler-001:
+    image: ghcr.io/voxpupuli/container-puppetserver:8.3.0-latest
+    hostname: compiler-001
+    environment:
+      PUPPETSERVER_HOSTNAME: compiler-001
+      USE_PUPPETDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: puppet-ca
+      DNS_ALT_NAMES: puppet,puppet-lb
+    volumes:
+      - ./data/puppetserver-code:/etc/puppetlabs/code
+      - ./data/compiler-001-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    depends_on:
+      - ca
+
+  compiler-002:
+    image: ghcr.io/voxpupuli/container-puppetserver:8.3.0-latest
+    hostname: compiler-002
+    environment:
+      PUPPETSERVER_HOSTNAME: compiler-002
+      USE_PUPPETDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: puppet-ca
+      DNS_ALT_NAMES: puppet,puppet-lb
+    volumes:
+      - ./data/puppetserver-code:/etc/puppetlabs/code
+      - ./data/compiler-002-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    depends_on:
+      - ca
+
+  compiler-003:
+    image: ghcr.io/voxpupuli/container-puppetserver:8.3.0-latest
+    hostname: compiler-003
+    environment:
+      PUPPETSERVER_HOSTNAME: compiler-003
+      USE_PUPPETDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: puppet-ca
+      DNS_ALT_NAMES: puppet,puppet-lb
+    volumes:
+      - ./data/puppetserver-code:/etc/puppetlabs/code
+      - ./data/compiler-003-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    depends_on:
+      - ca
+
+networks:
+  default:
+    name: crafty-ha
