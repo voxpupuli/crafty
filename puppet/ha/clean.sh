@@ -1,3 +1,4 @@
+#!/bin/bash
 
 docker compose --profile test down
 docker compose --profile lb down
