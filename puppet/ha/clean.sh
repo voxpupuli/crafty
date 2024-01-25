@@ -1,14 +1,8 @@
-pushd test
-docker compose down
-rm -fr ssl
-popd
 
-pushd lb
-docker compose down
-rm -fr ssl/*.pem
-popd
+docker compose --profile test down
+docker compose --profile lb down
+docker compose --profile puppet down
 
-pushd puppet
-docker compose down
-rm -fr data
-popd
+rm -fr agent-ssl
+rm -fr server-data
+rm -fr nginx-ssl/*.pem
