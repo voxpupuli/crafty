@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   puppet:
-    image: ${REGISTRY_PATH}/container-puppetserver:v1.1.2-7
+    image: ${REGISTRY_PATH}/container-puppetserver:8.3.0-v1.2.0
     hostname: puppet
     environment:
       - PUPPETSERVER_HOSTNAME=puppet
@@ -11,6 +11,7 @@ services:
       - PUPPETDB_SSL_PORT=8081
       - USE_PUPPETDB=true
       - AUTOSIGN=true
+      - 'CSR_ATTRIBUTES={"custom_attributes": { "challengePassword": "foobar" }, "extension_requests": { "pp_project": "foo" } }'
       # For private repos, use git@github.com:user/repo.git and provide SSH keys
       # - R10K_REMOTE=https://github.com/betadots/demo-control-repo.git
     volumes:
@@ -22,7 +23,7 @@ services:
       - 8140:8140
 
   puppetdb:
-    image: ${REGISTRY_PATH}/container-puppetdb:v1.2.0-7
+    image: ${REGISTRY_PATH}/container-puppetdb:8.2.0-v1.2.1
     hostname: puppetdb
     environment:
       - USE_PUPPETSERVER=true
