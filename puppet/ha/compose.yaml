@@ -3,7 +3,7 @@ version: '3.8'
 services:
 ### Profile: Puppet ###########################################################
   ca:
-    image: ghcr.io/voxpupuli/container-puppetserver:8.3.0-latest
+    image: ghcr.io/voxpupuli/container-puppetserver:8.4.0-latest
     hostname: puppet-ca
     environment:
       PUPPETSERVER_HOSTNAME: puppet-ca
@@ -19,7 +19,7 @@ services:
       - puppet
 
   compiler-001:
-    image: ghcr.io/voxpupuli/container-puppetserver:8.3.0-latest
+    image: ghcr.io/voxpupuli/container-puppetserver:8.4.0-latest
     hostname: compiler-001
     environment:
       PUPPETSERVER_HOSTNAME: compiler-001
@@ -37,7 +37,7 @@ services:
       - ca
 
   compiler-002:
-    image: ghcr.io/voxpupuli/container-puppetserver:8.3.0-latest
+    image: ghcr.io/voxpupuli/container-puppetserver:8.4.0-latest
     hostname: compiler-002
     environment:
       PUPPETSERVER_HOSTNAME: compiler-002
@@ -55,7 +55,7 @@ services:
       - ca
 
   compiler-003:
-    image: ghcr.io/voxpupuli/container-puppetserver:8.3.0-latest
+    image: ghcr.io/voxpupuli/container-puppetserver:8.4.0-latest
     hostname: compiler-003
     environment:
       PUPPETSERVER_HOSTNAME: compiler-003
