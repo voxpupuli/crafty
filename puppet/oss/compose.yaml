@@ -5,15 +5,15 @@ services:
     image: ghcr.io/voxpupuli/container-puppetserver:8.4.0-latest
     hostname: puppet
     environment:
-      - PUPPETSERVER_HOSTNAME=puppet
-      - PUPPETSERVER_PORT=8140
-      - PUPPETDB_HOSTNAME=puppetdb
-      - PUPPETDB_SSL_PORT=8081
-      - USE_PUPPETDB=true
-      - AUTOSIGN=true
-      - 'CSR_ATTRIBUTES={"custom_attributes": { "challengePassword": "foobar" }, "extension_requests": { "pp_project": "foo" } }'
+      PUPPETSERVER_HOSTNAME: puppet
+      PUPPETSERVER_PORT: 8140
+      PUPPETDB_HOSTNAME: puppetdb
+      PUPPETDB_SSL_PORT: 8081
+      USE_PUPPETDB: true
+      AUTOSIGN: true
+      CSR_ATTRIBUTES: '{"custom_attributes": { "challengePassword": "foobar" }, "extension_requests": { "pp_project": "foo" } }'
       # For private repos, use git@github.com:user/repo.git and provide SSH keys
-      # - R10K_REMOTE=https://github.com/betadots/demo-control-repo.git
+      # R10K_REMOTE: https://github.com/betadots/demo-control-repo.git
     volumes:
       - puppetserver:/opt/puppetlabs/server/data/puppetserver
       - puppetserver-ssl:/etc/puppetlabs/puppet/ssl
