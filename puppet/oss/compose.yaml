@@ -18,6 +18,7 @@ services:
       - puppetserver:/opt/puppetlabs/server/data/puppetserver
       - puppetserver-ssl:/etc/puppetlabs/puppet/ssl
       - puppetserver-ca:/etc/puppetlabs/puppetserver/ca
+      - ./puppet-code:/etc/puppetlabs/code
     restart: always
     ports:
       - 8140:8140
@@ -39,6 +40,7 @@ services:
     restart: always
     ports:
       - 8081:8081
+      - 8080:8080
     depends_on:
       - postgres
       - puppet
@@ -83,6 +85,34 @@ services:
       - 8088:8088
     depends_on:
       - puppetdb
+
+  hdm:
+    image: ${HDM_REGISTRY_PATH}/hdm:latest
+    hostname: hdm
+    environment:
+      - SECRET_KEY_BASE=9dea7603c008dec285e4b231602a00b2
+    volumes:
+      - ./hdm_config/hdm.yml:/hdm/config/hdm.yml
+      - ./puppet-code:/etc/puppetlabs/code
+    ports:
+      - 3000:3000
+    depends_on:
+      - puppetdb
+      - puppet
+    profiles:
+      - hdm
+
+  testing:
+    image: ghcr.io/betadots/pdc:latest
+    container_name: crafty-testing
+    hostname: crafty-testing
+    platform: linux/x86_64
+    volumes:
+      - ./puppet.conf:/etc/puppetlabs/puppet/puppet.conf:ro
+      - ./agent-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - test
 
 networks:
   default:
