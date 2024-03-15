@@ -20,8 +20,7 @@ The new version schema has the following layout:
 Example usage:
 
 ```shell
-docker run --name puppet --hostname puppet -v ./code:/etc/puppetlabs/code/ ghcr.io/voxpupuli/container-puppetserver:7.13.0-v1.1.3
-docker run --link postgres:postgres --link puppet:puppet ghcr.io/voxpupuli/container-puppetdb:7.16.0-v1.3.0
+docker pull ghcr.io/voxpupuli/container-puppetserver:7.13.0-v1.1.3
 ```
 
 | Name | Description |
