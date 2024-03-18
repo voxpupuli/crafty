@@ -1,0 +1,6 @@
+---
+production:
+  read_only: true
+  allow_encryption: false
+  puppet_db:
+    server: http://puppetdb:8080
