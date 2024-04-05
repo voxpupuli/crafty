@@ -92,7 +92,7 @@ services:
     environment:
       - SECRET_KEY_BASE=9dea7603c008dec285e4b231602a00b2
     volumes:
-      - ./hdm_config/hdm.yml:/hdm/config/hdm.yml
+      - ./hdm_config/hdm.yml:/hdm/config/hdm.yml:ro
       - ./puppet-code:/etc/puppetlabs/code
     ports:
       - 3000:3000
