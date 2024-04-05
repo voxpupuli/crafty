@@ -40,7 +40,6 @@ services:
     restart: always
     ports:
       - 8081:8081
-      - 8080:8080
     depends_on:
       - postgres
       - puppet
@@ -65,7 +64,7 @@ services:
       - 5432
 
   puppetboard:
-    image: ${REGISTRY_PATH}/puppetboard:latest
+    image: ghcr.io/voxpupuli/puppetboard:latest
     hostname: puppetboard
     environment:
       - PUPPETDB_HOST=puppetdb
@@ -87,7 +86,7 @@ services:
       - puppetdb
 
   hdm:
-    image: ${HDM_REGISTRY_PATH}/hdm:latest
+    image: ghcr.io/betadots/hdm:latest
     hostname: hdm
     environment:
       - SECRET_KEY_BASE=9dea7603c008dec285e4b231602a00b2
@@ -108,7 +107,7 @@ services:
     hostname: crafty-testing
     platform: linux/x86_64
     volumes:
-      - ./puppet.conf:/etc/puppetlabs/puppet/puppet.conf:ro
+      # - ./puppet.conf:/etc/puppetlabs/puppet/puppet.conf:ro
       - ./agent-ssl:/etc/puppetlabs/puppet/ssl
     restart: always
     profiles:
