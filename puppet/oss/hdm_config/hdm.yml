@@ -1,6 +1,9 @@
 ---
 production:
+  authentication_disabled: false
   read_only: true
   allow_encryption: false
   puppet_db:
     server: http://puppetdb:8080
+  hiera_config_file: "hiera.yaml"
+  config_dir: /etc/puppetlabs/code
