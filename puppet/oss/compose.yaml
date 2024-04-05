@@ -26,7 +26,7 @@ services:
       - puppet
 
   puppetdb:
-    image: ghcr.io/voxpupuli/container-puppetdb:8.3.0-latest
+    image: ghcr.io/voxpupuli/container-puppetdb:8.4.1-latest
     hostname: puppetdb
     environment:
       - USE_PUPPETSERVER=true
