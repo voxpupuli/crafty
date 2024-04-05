@@ -22,6 +22,8 @@ services:
     restart: always
     ports:
       - 8140:8140
+    profiles:
+      - puppet
 
   puppetdb:
     image: ghcr.io/voxpupuli/container-puppetdb:8.3.0-latest
@@ -40,8 +42,7 @@ services:
     restart: always
     ports:
       - 8081:8081
-    depends_on:
-      - postgres
+    profiles:
       - puppet
 
   postgres:
@@ -60,8 +61,8 @@ services:
       - puppetdb-postgres:/var/lib/postgresql/data
       - ./postgresql_init:/docker-entrypoint-initdb.d
     restart: always
-    expose:
-      - 5432
+    profiles:
+      - puppet
 
   puppetboard:
     image: ghcr.io/voxpupuli/puppetboard:latest
@@ -82,8 +83,8 @@ services:
     restart: always
     ports:
       - 8088:8088
-    depends_on:
-      - puppetdb
+    profiles:
+      - puppet
 
   hdm:
     image: ghcr.io/betadots/hdm:latest
