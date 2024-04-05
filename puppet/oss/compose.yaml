@@ -108,8 +108,7 @@ services:
     hostname: crafty-testing
     platform: linux/x86_64
     volumes:
-      # - ./puppet.conf:/etc/puppetlabs/puppet/puppet.conf:ro
-      - ./agent-ssl:/etc/puppetlabs/puppet/ssl
+      - agent-ssl:/etc/puppetlabs/puppet/ssl
     restart: always
     profiles:
       - test
