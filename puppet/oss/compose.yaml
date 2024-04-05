@@ -96,9 +96,6 @@ services:
       - ./puppet-code:/etc/puppetlabs/code
     ports:
       - 3000:3000
-    depends_on:
-      - puppetdb
-      - puppet
     profiles:
       - hdm
 
@@ -123,3 +120,4 @@ volumes:
   puppetserver-ca:
   puppetdb:
   puppetdb-postgres:
+  agent-ssl:
