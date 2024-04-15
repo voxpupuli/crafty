@@ -56,7 +56,7 @@ For a comprehensive understanding of our setup, please refer to the detailed inf
 
 ## How to release a container
 
-see [docs/how-to-release.md](docs/how-to-release.md)
+see [RELEASE.md](RELEASE.md)
 
 ## Contributing
 
