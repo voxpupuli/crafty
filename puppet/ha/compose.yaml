@@ -74,7 +74,7 @@ services:
 
 ### Profile: LB ###############################################################
   puppet-lb:
-    image: nginx:1.25.4
+    image: nginx:1.25.5
     ports:
       - 8140:8140
     hostname: puppet-lb
