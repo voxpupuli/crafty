@@ -50,9 +50,15 @@ For a comprehensive understanding of our setup, please refer to the detailed inf
 
 ### puppet/ha
 
-In our [puppet/ha](puppet/ha) example, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three Puppet compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
+In [puppet/ha](puppet/ha) example, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three Puppet compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
 
 For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/ha/README.md).
+
+### puppet/minimal
+
+In [puppet/minimal](puppet/minimal) example we bundle puppetserver, puppetdb and postgres together.
+
+For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/minimal/README.md).
 
 ## How to release a container
 
