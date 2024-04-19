@@ -54,6 +54,12 @@ In our [puppet/ha](puppet/ha) example, we have established a robust infrastructu
 
 For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/ha/README.md).
 
+### puppet/minimal
+
+In [puppet/minimal](puppet/minimal) example we bundle puppetserver, puppetdb and postgres together.
+
+For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/minimal/README.md).
+
 ## How to release a container
 
 see [RELEASE.md](RELEASE.md)
