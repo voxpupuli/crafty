@@ -62,7 +62,7 @@ For a comprehensive understanding of our setup, please refer to the detailed inf
 
 ## Kubernetes
 
-For a Helm-Chart using this container have a look at: [puppetlabs/puppetserver-helm-chart](https://github.com/puppetlabs/puppetserver-helm-chart)
+For a Helm-Chart using these containers have a look at: [puppetlabs/puppetserver-helm-chart](https://github.com/puppetlabs/puppetserver-helm-chart)
 
 ## How to release a container
 
