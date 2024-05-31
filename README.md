@@ -60,6 +60,10 @@ In [puppet/minimal](puppet/minimal) example we bundle puppetserver, puppetdb and
 
 For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/minimal/README.md).
 
+## Kubernetes
+
+For a Helm-Chart using this container have a look at: [puppetlabs/puppetserver-helm-chart](https://github.com/puppetlabs/puppetserver-helm-chart)
+
 ## How to release a container
 
 see [RELEASE.md](RELEASE.md)
