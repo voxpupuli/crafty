@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   puppet:
-    image: ghcr.io/voxpupuli/container-puppetserver:8.6.0-latest
+    image: ghcr.io/voxpupuli/container-puppetserver:8.6.1-latest
     hostname: puppet
     environment:
       PUPPETSERVER_HOSTNAME: puppet
