@@ -51,8 +51,8 @@ services:
     hostname: postgres
     environment:
       - POSTGRES_DB=${POSTGRES_DB:-puppetdb}
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=${POSTGRES_SUPERUSER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_SUPERUSER_PASSWORD:-postgres}
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
       interval: 10s
