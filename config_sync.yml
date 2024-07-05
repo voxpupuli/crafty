@@ -1,0 +1,5 @@
+---
+repos:
+  - 'voxpupuli/container-puppetdb'
+  - 'voxpupuli/container-puppetserver'
+  - 'voxpupuli/container-voxbox'

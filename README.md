@@ -64,6 +64,20 @@ For a comprehensive understanding of our setup, please refer to the detailed inf
 
 For a Helm-Chart using these containers have a look at: [puppetlabs/puppetserver-helm-chart](https://github.com/puppetlabs/puppetserver-helm-chart)
 
+## How to use crafty.rb
+
+crafty.rb syncs `config_sync/**/*` into `.github` for defined containter repositories.
+It commits, pushes and creates a pull request for the changes.
+
+the container repositories are defined in [`config_sync.yml`](config_sync.yml)
+
+```shell
+bundle config set --local path 'vendor/bundle'
+bundle install
+export GITHUB_TOKEN='your_token_here'
+bundle exec ruby crafty.rb
+```
+
 ## How to release a container
 
 see [RELEASE.md](RELEASE.md)
