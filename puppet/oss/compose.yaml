@@ -1,5 +1,4 @@
-version: '3.8'
-
+---
 services:
   puppet:
     image: ghcr.io/voxpupuli/container-puppetserver:8.6.1-latest
