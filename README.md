@@ -20,7 +20,7 @@ The version schema has the following layout:
 Example usage:
 
 ```shell
-docker pull ghcr.io/voxpupuli/container-puppetserver:7.13.0-v1.1.3
+docker pull ghcr.io/voxpupuli/puppetserver:8.6.1-latest
 ```
 
 | Name | Description |
