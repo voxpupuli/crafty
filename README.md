@@ -36,7 +36,7 @@ docker pull ghcr.io/voxpupuli/puppetserver:8.6.1-latest
 
 ### puppet/oss
 
-In [puppet/oss](puppet/oss) example we bundle puppetserver, puppetdb, postgres, puppetboard and HDM together.
+In the [puppet/oss](puppet/oss) example we bundle puppetserver, puppetdb, postgres, puppetboard and HDM together.
 
 We use the images from
 
@@ -50,15 +50,19 @@ For a comprehensive understanding of our setup, please refer to the detailed inf
 
 ### puppet/ha
 
-In our [puppet/ha](puppet/ha) example, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three Puppet compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
+In the [puppet/ha](puppet/ha) example, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three Puppet compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
 
 For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/ha/README.md).
 
 ### puppet/minimal
 
-In [puppet/minimal](puppet/minimal) example we bundle puppetserver, puppetdb and postgres together.
+In the [puppet/minimal](puppet/minimal) example we bundle puppetserver, puppetdb and postgres together.
 
 For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/minimal/README.md).
+
+### puppet/pps_only
+
+In the [puppet/pps_only](puppet/pps_only/) example a puppetserver instance is started. For the ones who only want to run a standalone puppetserver without puppetdb. Mainly used for testing `voxpupuli/puppetserver` builds.
 
 ## Kubernetes
 
