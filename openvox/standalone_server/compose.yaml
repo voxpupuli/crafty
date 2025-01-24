@@ -1,0 +1,15 @@
+---
+services:
+  puppet:
+    image: ghcr.io/openvoxproject/openvoxserver:latest
+    hostname: puppet
+    environment:
+      OPENVOXSERVER_HOSTNAME: puppet
+      USE_OPENVOXDB: false
+    restart: always
+    ports:
+      - 8140:8140
+
+networks:
+  default:
+    name: crafty-ovs
