@@ -34,6 +34,18 @@ docker pull ghcr.io/voxpupuli/puppetserver:8.6.1-latest
 
 ## Compose Examples
 
+### openvox/minimal
+
+In the [openvox/minimal](openvox/minimal) example we bundle openvox-server, openvoxdb and postgres together.
+
+For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](openvox/minimal/README.md).
+
+### openvox/standalone_server
+
+In the [openvox/standalone_server](openvox/standalone_server) example a openvox-server instance is started.
+For the ones who only want to run a standalone openvox-server without openvoxdb.
+Mainly used for testing `openvoxproject/openvoxserver` builds.
+
 ### puppet/oss
 
 In the [puppet/oss](puppet/oss) example we bundle puppetserver, puppetdb, postgres, puppetboard and HDM together.
