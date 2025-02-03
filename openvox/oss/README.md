@@ -39,7 +39,7 @@ docker volume rm oss_agent-ssl
 
 ## Generate additional certificates
 
-After the OPenVox stack is running, execute the following commant to generate an additional certificate.
+After the OpenVox stack is running, execute the following commant to generate an additional certificate.
 It will be put in the openvoxserver-ssl volume, or any other volume you may have mounted for `/etc/puppetlabs/puppet/ssl`.
 
 ```bash
