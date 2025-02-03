@@ -1,0 +1,108 @@
+---
+services:
+  puppet:
+    image: ghcr.io/openvoxproject/openvoxserver:latest
+    hostname: puppet
+    environment:
+      OPENVOXSERVER_HOSTNAME: puppet
+      CSR_ATTRIBUTES: '{"custom_attributes": { "challengePassword": "foobar" }, "extension_requests": { "pp_project": "foo" } }'
+      # For private repos, use git@github.com:user/repo.git and provide SSH keys
+      # R10K_REMOTE: https://github.com/betadots/demo-control-repo.git
+    volumes:
+      - openvoxserver:/opt/puppetlabs/server/data/puppetserver
+      - openvoxserver-ssl:/etc/puppetlabs/puppet/ssl
+      - openvoxserver-ca:/etc/puppetlabs/puppetserver/ca
+      - ./openvox-code:/etc/puppetlabs/code
+    restart: always
+    ports:
+      - 8140:8140
+    profiles:
+      - openvox
+
+  openvoxdb:
+    image: ghcr.io/openvoxproject/openvoxdb:latest
+    hostname: openvoxdb
+    volumes:
+      - openvoxdb:/opt/puppetlabs/server/data/puppetdb
+    restart: always
+    ports:
+      - 8081:8081
+    profiles:
+      - openvox
+
+  postgres:
+    image: docker.io/postgres:17-alpine
+    hostname: postgres
+    environment:
+      - POSTGRES_DB=openvoxdb
+      - POSTGRES_USER=openvoxdb
+      - POSTGRES_PASSWORD=openvoxdb
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U openvoxdb -d openvoxdb'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - openvoxdb-postgres:/var/lib/postgresql/data
+      - ./postgresql_init:/docker-entrypoint-initdb.d
+    restart: always
+    profiles:
+      - openvox
+
+  puppetboard:
+    image: ghcr.io/voxpupuli/puppetboard:latest
+    hostname: puppetboard
+    environment:
+      - PUPPETDB_HOST=puppetdb
+      # - PUPPETDB_PORT=8081 # use this for TLS
+      - PUPPETDB_PORT=8080  # Use this for non-TLS
+      - PUPPETBOARD_PORT=8088
+      - SECRET_KEY=628c4e02daaaca2b90242491f607d3704153d424f215ac51b1dd873055e102a5  # Long random String : python3 -c 'import secrets; print(secrets.token_hex())'
+      # if you wanna use SSL, you need to provide the following variables
+      # see the README.md for more information, look for "Generate additional certificates"
+    #   - PUPPETDB_SSL_VERIFY=/etc/puppetlabs/puppet/ssl/certs/ca.pem
+    #   - PUPPETDB_KEY=/etc/puppetlabs/puppet/ssl/private_keys/puppetboard.pem
+    #   - PUPPETDB_CERT=/etc/puppetlabs/puppet/ssl/certs/puppetboard.pem
+    # volumes:
+    #   - puppetserver-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    ports:
+      - 8088:8088
+    profiles:
+      - puppet
+
+  hdm:
+    image: ghcr.io/betadots/hdm:latest
+    hostname: hdm
+    environment:
+      - SECRET_KEY_BASE=9dea7603c008dec285e4b231602a00b2
+    volumes:
+      - ./hdm_config/hdm.yml:/hdm/config/hdm.yml:ro
+      - ./puppet-code:/etc/puppetlabs/code
+    ports:
+      - 3000:3000
+    profiles:
+      - hdm
+
+  testing:
+    image: ghcr.io/betadots/pdc:latest
+    container_name: crafty-testing
+    hostname: crafty-testing
+    platform: linux/x86_64
+    volumes:
+      - agent-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - test
+
+networks:
+  default:
+    name: crafty-oss
+
+volumes:
+  openvoxserver:
+  openvoxserver-ssl:
+  openvoxserver-ca:
+  openvoxdb:
+  openvoxdb-postgres:
+  agent-ssl:
