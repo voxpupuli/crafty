@@ -11,7 +11,7 @@ docker compose --profile openvox up -d
 when the openvox-profile is up and healthy, start the test-profile
 
 ```shell
-docker compose --profile test run testing puppet agent -t
+docker compose --profile test run testing agent -t
 ```
 
 ## Start hdm

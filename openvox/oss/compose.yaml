@@ -85,10 +85,9 @@ services:
       - hdm
 
   testing:
-    image: ghcr.io/betadots/pdc:latest
+    image: ghcr.io/openvoxproject/openvoxagent:latest
     container_name: crafty-testing
     hostname: crafty-testing
-    platform: linux/x86_64
     volumes:
       - agent-ssl:/etc/puppetlabs/puppet/ssl
     restart: always
