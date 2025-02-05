@@ -53,7 +53,7 @@ services:
     image: ghcr.io/voxpupuli/puppetboard:latest
     hostname: puppetboard
     environment:
-      - PUPPETDB_HOST=puppetdb
+      - PUPPETDB_HOST=openvoxdb
       # - PUPPETDB_PORT=8081 # use this for TLS
       - PUPPETDB_PORT=8080  # Use this for non-TLS
       - PUPPETBOARD_PORT=8088
