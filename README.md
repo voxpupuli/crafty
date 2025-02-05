@@ -60,6 +60,12 @@ We use the images from
 
 For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](openvox/oss/README.md).
 
+### ha
+
+In the [openvox/ha](openvox/ha) example, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three OpenVox compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
+
+For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](openvox/ha/README.md).
+
 ## ⚠️ Deprecated ⚠️ - Puppet Examples
 
 ### oss

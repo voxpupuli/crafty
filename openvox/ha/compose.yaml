@@ -1,0 +1,100 @@
+---
+services:
+### Profile: Puppet ###########################################################
+  ca:
+    image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
+    hostname: openvox-ca
+    environment:
+      OPENVOXSERVER_HOSTNAME: openvox-ca
+      USE_OPENVOXDB: false
+      CA_ENABLED: true
+      CA_ALLOW_SUBJECT_ALT_NAMES: true
+    volumes:
+      - ./server-data/openvox-code:/etc/puppetlabs/code
+      - ./server-data/openvox-ca-ssl:/etc/puppetlabs/puppet/ssl
+      - ./server-data/openvox-ca:/etc/puppetlabs/puppetserver/ca
+    restart: always
+    profiles:
+      - openvox
+
+  compiler-001:
+    image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
+    hostname: compiler-001
+    environment:
+      OPENVOXSERVER_HOSTNAME: compiler-001
+      USE_OPENVOXDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: openvox-ca
+      DNS_ALT_NAMES: openvox,openvox-lb
+    volumes:
+      - ./server-data/openvox-code:/etc/puppetlabs/code
+      - ./server-data/compiler-001-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - openvox
+    depends_on:
+      - ca
+
+  compiler-002:
+    image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
+    hostname: compiler-002
+    environment:
+      OPENVOXSERVER_HOSTNAME: compiler-002
+      USE_OPENVOXDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: openvox-ca
+      DNS_ALT_NAMES: openvox,openvox-lb
+    volumes:
+      - ./server-data/openvox-code:/etc/puppetlabs/code
+      - ./server-data/compiler-002-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - openvox
+    depends_on:
+      - ca
+
+  compiler-003:
+    image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
+    hostname: compiler-003
+    environment:
+      OPENVOXSERVER_HOSTNAME: compiler-003
+      USE_OPENVOXDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: openvox-ca
+      DNS_ALT_NAMES: openvox,openvox-lb
+    volumes:
+      - ./server-data/openvox-code:/etc/puppetlabs/code
+      - ./server-data/compiler-003-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - openvox
+    depends_on:
+      - ca
+
+### Profile: LB ###############################################################
+  openvox-lb:
+    image: nginx:1.27.3
+    ports:
+      - 8140:8140
+    hostname: openvox-lb
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx-ssl:/etc/nginx/ssl:ro
+    restart: always
+    profiles:
+      - lb
+
+### Profile: Test #############################################################
+  testing:
+    image: ghcr.io/openvoxproject/openvoxagent:8.11.0-latest
+    hostname: ha-testing
+    volumes:
+      - ./puppet.conf:/etc/puppetlabs/puppet/puppet.conf:ro
+      - ./agent-ssl:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - test
+
+networks:
+  default:
+    name: crafty-ha
