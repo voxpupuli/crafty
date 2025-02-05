@@ -69,7 +69,7 @@ services:
     ports:
       - 8088:8088
     profiles:
-      - puppet
+      - openvox
 
   hdm:
     image: ghcr.io/betadots/hdm:latest
