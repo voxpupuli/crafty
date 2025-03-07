@@ -1,5 +1,14 @@
 # OpenVox r10k Example
 
+## Run r10k
+
+Run r10k first to populate the code volume.
+Otherwise the servers try to wirte to it with another user.
+
+```shell
+docker compose --profile r10k run --rm r10k
+```
+
 ## Start the OpenVox compose
 
 ```shell
@@ -9,29 +18,13 @@ docker compose --profile openvox up -d
 docker compose ps
 ```
 
-## Check code dir v1
+## Check code dir
 
 ```shell
-docker exec -it r10k-compiler-003-1 ls -la /etc/puppetlabs/code
-```
-
-This should look like this:
-
-```terminal
-total 24
-drwxr-xr-x  6 puppet puppet 4096 Mar  7 15:24 .
-drwxr-xr-x  4 puppet puppet 4096 Mar  7 15:23 ..
-drwxr-xr-x 10 puppet puppet 4096 Mar  7 15:24 production
-```
-
-## Run r10k
-
-```shell
-docker compose --profile r10k run --rm r10k
 docker exec -it r10k-compiler-003-1 ls -la /etc/puppetlabs/code/environments
 ```
 
-This should now look somewhat like this:
+This should look somewhat like this:
 
 ```terminal
 total 24
