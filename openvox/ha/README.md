@@ -1,6 +1,6 @@
-# Puppet HA Example
+# OpenVox HA Example
 
-## Start the Puppet compose
+## Start the OpenVox compose
 
 ```shell
 docker compose --profile openvox up -d
