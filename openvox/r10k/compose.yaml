@@ -1,0 +1,92 @@
+---
+services:
+### Profile: OpenVox ###########################################################
+  ca:
+    image: os-local
+    hostname: openvox-ca
+    environment:
+      OPENVOXSERVER_HOSTNAME: openvox-ca
+      USE_OPENVOXDB: false
+      CA_ENABLED: true
+      CA_ALLOW_SUBJECT_ALT_NAMES: true
+    volumes:
+      - ssl_dir:/etc/puppetlabs/puppet/ssl
+      - ca_dir:/etc/puppetlabs/puppetserver/ca
+    restart: always
+    profiles:
+      - openvox
+
+  compiler-001:
+    image: os-local
+    hostname: compiler-001
+    environment:
+      OPENVOXSERVER_HOSTNAME: compiler-001
+      USE_OPENVOXDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: openvox-ca
+      DNS_ALT_NAMES: openvox,openvox-lb
+    volumes:
+      - code_dir:/etc/puppetlabs/code
+      - ssl_dir:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - openvox
+    depends_on:
+      - ca
+
+  compiler-002:
+    image: os-local
+    hostname: compiler-002
+    environment:
+      OPENVOXSERVER_HOSTNAME: compiler-002
+      USE_OPENVOXDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: openvox-ca
+      DNS_ALT_NAMES: openvox,openvox-lb
+    volumes:
+      - code_dir:/etc/puppetlabs/code
+      - ssl_dir:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - openvox
+    depends_on:
+      - ca
+
+  compiler-003:
+    image: os-local
+    hostname: compiler-003
+    environment:
+      OPENVOXSERVER_HOSTNAME: compiler-003
+      USE_OPENVOXDB: false
+      CA_ENABLED: false
+      CA_HOSTNAME: openvox-ca
+      DNS_ALT_NAMES: openvox,openvox-lb
+    volumes:
+      - code_dir:/etc/puppetlabs/code
+      - ssl_dir:/etc/puppetlabs/puppet/ssl
+    restart: always
+    profiles:
+      - openvox
+    depends_on:
+      - ca
+
+### Profile: r10k #############################################################
+  r10k:
+      image: r10k-local:latest
+      environment:
+        - PUPPET_CONTROL_REPO=https://github.com/voxpupuli/controlrepo.git
+      volumes:
+        - code_dir:/etc/puppetlabs/code:rw
+      entrypoint: ["/docker-entrypoint.sh"]
+      command: ["deploy", "environment", "-mv"]
+      profiles:
+        - r10k
+
+networks:
+  default:
+    name: crafty-ha
+
+volumes:
+  code_dir:
+  ssl_dir:
+  ca_dir:

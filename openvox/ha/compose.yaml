@@ -1,6 +1,6 @@
 ---
 services:
-### Profile: Puppet ###########################################################
+### Profile: OpenVox ##########################################################
   ca:
     image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
     hostname: openvox-ca
