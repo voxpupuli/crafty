@@ -17,12 +17,13 @@ docker exec -it r10k-compiler-003-1 ls -la /etc/puppetlabs/code
 
 This should look like this:
 
-```text
+```terminal
 total 24
 drwxr-xr-x  6 puppet puppet 4096 Mar  7 15:24 .
 drwxr-xr-x  4 puppet puppet 4096 Mar  7 15:23 ..
 drwxr-xr-x 10 puppet puppet 4096 Mar  7 15:24 production
 ```
+
 ## Run r10k
 
 ```shell
@@ -32,7 +33,7 @@ docker exec -it r10k-compiler-003-1 ls -la /etc/puppetlabs/code/environments
 
 This should now look somewhat like this:
 
-```
+```terminal
 total 24
 drwxr-xr-x  6 puppet puppet 4096 Mar  7 15:28 .
 drwxr-xr-x  4 puppet puppet 4096 Mar  7 15:23 ..
@@ -41,6 +42,7 @@ drwxr-xr-x 10 puppet puppet 4096 Mar  7 15:28 module2
 drwxr-xr-x 10 puppet puppet 4096 Mar  7 15:28 production
 drwxr-xr-x 10 puppet puppet 4096 Mar  7 15:28 server
 ```
+
 ## Clean up
 
 ```shell
