@@ -3,7 +3,7 @@
 ## Run r10k
 
 Run r10k first to populate the code volume.
-Otherwise the servers try to wirte to it with another user.
+Otherwise the servers try to write to it with another user.
 
 ```shell
 docker compose --profile r10k run --rm r10k
