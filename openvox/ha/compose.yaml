@@ -2,7 +2,7 @@
 services:
 ### Profile: OpenVox ##########################################################
   ca:
-    image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
+    image: ghcr.io/openvoxproject/openvoxserver:8.8.1-latest
     hostname: openvox-ca
     environment:
       OPENVOXSERVER_HOSTNAME: openvox-ca
@@ -18,7 +18,7 @@ services:
       - openvox
 
   compiler-001:
-    image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
+    image: ghcr.io/openvoxproject/openvoxserver:8.8.1-latest
     hostname: compiler-001
     environment:
       OPENVOXSERVER_HOSTNAME: compiler-001
@@ -36,7 +36,7 @@ services:
       - ca
 
   compiler-002:
-    image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
+    image: ghcr.io/openvoxproject/openvoxserver:8.8.1-latest
     hostname: compiler-002
     environment:
       OPENVOXSERVER_HOSTNAME: compiler-002
@@ -54,7 +54,7 @@ services:
       - ca
 
   compiler-003:
-    image: ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
+    image: ghcr.io/openvoxproject/openvoxserver:8.8.1-latest
     hostname: compiler-003
     environment:
       OPENVOXSERVER_HOSTNAME: compiler-003
