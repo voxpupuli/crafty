@@ -71,6 +71,27 @@ services:
     profiles:
       - openvox
 
+  webhook:
+    image: ghcr.io/voxpupuli/r10k-webhook:latest
+    hostname: webhook
+    environment:
+      - PUPPET_CONTROL_REPO="https://git.example.org/puppet/control.git"
+      - USER="puppet"
+      - PASSWORD="puppet"
+      # For using HTTPS enable tls and uncomment the following lines
+      #- TLS=true
+      #- TLS_CERT="/etc/puppetlabs/puppet/ssl/certs/puppet.pem"
+      #- TLS_KEY="/etc/puppetlabs/puppet/ssl/private_keys/puppet.pem"
+    volumes:
+      - ./puppet-code:/etc/puppetlabs/code
+      # For using HTTPS enable tls above and mount your key/cert directory
+      #- openvoxserver-ssl:/etc/puppetlabs/puppet/ssl:ro
+    ports:
+      - 4000:4000
+    restart: always
+    profiles:
+      - webhook
+
   hdm:
     image: ghcr.io/betadots/hdm:latest
     hostname: hdm
