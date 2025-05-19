@@ -83,7 +83,7 @@ services:
       #- TLS_CERT="/etc/puppetlabs/puppet/ssl/certs/puppet.pem"
       #- TLS_KEY="/etc/puppetlabs/puppet/ssl/private_keys/puppet.pem"
     volumes:
-      - ./puppet-code:/etc/puppetlabs/code
+      - ./openvox-code:/etc/puppetlabs/code
       # For using HTTPS enable tls above and mount your key/cert directory
       #- openvoxserver-ssl:/etc/puppetlabs/puppet/ssl:ro
     ports:
@@ -99,7 +99,7 @@ services:
       - SECRET_KEY_BASE=9dea7603c008dec285e4b231602a00b2
     volumes:
       - ./hdm_config/hdm.yml:/hdm/config/hdm.yml:ro
-      - ./puppet-code:/etc/puppetlabs/code
+      - ./openvox-code:/etc/puppetlabs/code
     ports:
       - 3000:3000
     profiles:
