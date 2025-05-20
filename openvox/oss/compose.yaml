@@ -99,6 +99,8 @@ services:
       - SECRET_KEY_BASE=9dea7603c008dec285e4b231602a00b2
     volumes:
       - ./hdm_config/hdm.yml:/hdm/config/hdm.yml:ro
+      - ./hdm_config/database.yml:/hdm/config/database.yml:ro
+      - hdm-db:/db
       - ./openvox-code:/etc/puppetlabs/code
     ports:
       - 3000:3000
@@ -126,3 +128,4 @@ volumes:
   openvoxdb:
   openvoxdb-postgres:
   agent-ssl:
+  hdm-db:
