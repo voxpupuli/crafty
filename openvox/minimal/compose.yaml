@@ -1,6 +1,6 @@
 ---
 services:
-  puppet:
+  openvoxserver:
     image: ghcr.io/openvoxproject/openvoxserver:latest
     hostname: puppet
     environment:
@@ -13,6 +13,10 @@ services:
     image: ghcr.io/openvoxproject/openvoxdb:latest
     hostname: openvoxdb
     restart: always
+    depends_on:
+      openvoxserver:
+        condition: service_healthy
+        restart: true
 
   postgres:
     image: docker.io/postgres:17-alpine

@@ -33,7 +33,9 @@ services:
     profiles:
       - openvox
     depends_on:
-      - ca
+      ca:
+        condition: service_healthy
+        restart: true
 
   compiler-002:
     image: ghcr.io/openvoxproject/openvoxserver:8.8.1-latest
@@ -51,7 +53,9 @@ services:
     profiles:
       - openvox
     depends_on:
-      - ca
+      ca:
+        condition: service_healthy
+        restart: true
 
   compiler-003:
     image: ghcr.io/openvoxproject/openvoxserver:8.8.1-latest
@@ -69,7 +73,9 @@ services:
     profiles:
       - openvox
     depends_on:
-      - ca
+      ca:
+        condition: service_healthy
+        restart: true
 
 ### Profile: LB ###############################################################
   openvox-lb:
