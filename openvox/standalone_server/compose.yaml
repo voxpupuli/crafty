@@ -1,6 +1,6 @@
 ---
 services:
-  puppet:
+  openvoxserver:
     image: ghcr.io/openvoxproject/openvoxserver:latest
     hostname: puppet
     environment:

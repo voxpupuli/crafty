@@ -1,6 +1,6 @@
 ---
 services:
-  puppet:
+  openvoxserver:
     image: ghcr.io/openvoxproject/openvoxserver:latest
     hostname: puppet
     environment:
@@ -25,6 +25,10 @@ services:
     volumes:
       - openvoxdb:/opt/puppetlabs/server/data/puppetdb
     restart: always
+    depends_on:
+      openvoxserver:
+        condition: service_healthy
+        restart: true
     ports:
       - 8081:8081
     profiles:
@@ -66,6 +70,10 @@ services:
     # volumes:
     #   - puppetserver-ssl:/etc/puppetlabs/puppet/ssl
     restart: always
+    depends_on:
+      openvoxdb:
+        condition: service_healthy
+        restart: true
     ports:
       - 8088:8088
     profiles:

@@ -2,7 +2,7 @@
 services:
 ### Profile: OpenVox ###########################################################
   ca:
-    image: os-local
+    image: ghcr.io/openvoxproject/openvoxserver:latest
     hostname: openvox-ca
     environment:
       OPENVOXSERVER_HOSTNAME: openvox-ca
@@ -17,7 +17,7 @@ services:
       - openvox
 
   compiler-001:
-    image: os-local
+    image: ghcr.io/openvoxproject/openvoxserver:latest
     hostname: compiler-001
     environment:
       OPENVOXSERVER_HOSTNAME: compiler-001
@@ -32,10 +32,12 @@ services:
     profiles:
       - openvox
     depends_on:
-      - ca
+      ca:
+        condition: service_healthy
+        restart: true
 
   compiler-002:
-    image: os-local
+    image: ghcr.io/openvoxproject/openvoxserver:latest
     hostname: compiler-002
     environment:
       OPENVOXSERVER_HOSTNAME: compiler-002
@@ -50,10 +52,12 @@ services:
     profiles:
       - openvox
     depends_on:
-      - ca
+      ca:
+        condition: service_healthy
+        restart: true
 
   compiler-003:
-    image: os-local
+    image: ghcr.io/openvoxproject/openvoxserver:latest
     hostname: compiler-003
     environment:
       OPENVOXSERVER_HOSTNAME: compiler-003
@@ -68,7 +72,9 @@ services:
     profiles:
       - openvox
     depends_on:
-      - ca
+      ca:
+        condition: service_healthy
+        restart: true
 
 ### Profile: r10k #############################################################
   r10k:
