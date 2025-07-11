@@ -1,9 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
-  "addLabels": ["renovate", "dependencies"],
+  "addLabels": [
+    "renovate",
+    "dependencies"
+  ],
   "assigneesFromCodeOwners": true,
   "dependencyDashboard": true,
   "automerge": true,
