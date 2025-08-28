@@ -10,6 +10,9 @@ on:
         default: './bin/'
         type: "string"
 
+permissions:
+  contents: read
+
 jobs:
   shellcheck:
     name: 'Shell Check'
@@ -20,7 +23,6 @@ jobs:
 
       # only required for workflows in private repositories
       actions: read
-      contents: read
     steps:
     - name: Repository checkout
       uses: actions/checkout@v5
