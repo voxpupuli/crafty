@@ -9,9 +9,6 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: read
-
 jobs:
   release:
     name: Release

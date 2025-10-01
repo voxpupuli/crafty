@@ -10,9 +10,6 @@ on:
         default: './bin/'
         type: "string"
 
-permissions:
-  contents: read
-
 jobs:
   shellcheck:
     name: 'Shell Check'
