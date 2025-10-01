@@ -1,5 +1,5 @@
 ---
-name: General CI 🚦🚥
+name: 🚦🚥 General CI
 
 on:
   workflow_call:
