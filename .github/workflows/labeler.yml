@@ -9,10 +9,12 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   labeler:
     permissions:
-      contents: read
       pull-requests: write
     name: Labeler
     runs-on: ubuntu-latest
