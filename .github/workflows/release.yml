@@ -16,6 +16,8 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     if: github.repository_owner == inputs.allowed_owner
     steps:
       - uses: actions/checkout@v5
