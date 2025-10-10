@@ -8,11 +8,21 @@ services:
     restart: always
     ports:
       - 8140:8140
+    healthcheck:
+      test: ["CMD-SHELL", "curl -ksS https://puppet:8140/status/v1/simple | grep -q '^running$'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   openvoxdb:
     image: ghcr.io/openvoxproject/openvoxdb:latest
     hostname: openvoxdb
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -ksS https://openvoxdb:8081/status/v1/simple | grep -q '^running$'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       openvoxserver:
         condition: service_healthy
