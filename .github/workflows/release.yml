@@ -17,7 +17,7 @@ jobs:
       contents: write
     if: github.repository_owner == inputs.allowed_owner
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
