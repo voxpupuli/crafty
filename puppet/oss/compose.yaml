@@ -43,6 +43,7 @@ services:
       - PUPPETDB_USER=${POSTGRES_USER:-puppetdb}
     volumes:
       - puppetdb:/opt/puppetlabs/server/data/puppetdb
+      - ./read-database.ini:/etc/puppetlabs/puppetdb/conf.d/read-database.ini:ro
     restart: always
     ports:
       - 8081:8081
@@ -59,8 +60,8 @@ services:
     hostname: postgres
     environment:
       - POSTGRES_DB=${POSTGRES_DB:-puppetdb}
-      - POSTGRES_USER=${POSTGRES_USER:-puppetdb}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-puppetdb}
+      - POSTGRES_USER=${POSTGRES_SUPERUSER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_SUPERUSER_PASSWORD:-postgres}
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
       interval: 10s
