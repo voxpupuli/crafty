@@ -14,8 +14,6 @@ After setting up the Systemd services, you can enable and start them using the f
 
 ```shell
 systemctl --user daemon-reload
-podman network create crafty-minimal
-systemctl --user enable --now openvoxdb.service
-systemctl --user enable --now openvox-compiler.service
-systemctl --user enable --now postgresql.service
+
+systemctl --user start openvox-minimal-pod.service
 ```
