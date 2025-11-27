@@ -1,17 +1,30 @@
 [Unit]
-Description=OpenVox DB
-Wants=podman-openvox-minimal.pod
-After=podman-openvox-minimal.pod
+Description=OpenVoxDB
+After=crafty.network
+After=postgres.service
+After=openvoxserver.service
+Requires=postgres.service
+Requires=openvoxserver.service
 
 [Container]
-Image=ghcr.io/openvoxproject/openvoxdb:latest
 ContainerName=openvoxdb
-Hostname=openvoxdb
-Pod=openvox-minimal
-RestartPolicy=always
-PodmanArgs=\
- --health-cmd "curl -ksS https://openvoxdb:8081/status/v1/simple | grep -q '^running$'" \
- --health-interval=10s --health-timeout=5s --health-retries=5
+Image=ghcr.io/openvoxproject/openvoxdb:latest
+AutoUpdate=registry
+Pod=openvox-minimal.pod
+Network=crafty.network
+Label=app=crafty
+
+Environment=OPENVOXSERVER_HOSTNAME=openvoxserver
+
+HealthCmd=curl -ksS https://openvoxdb:8081/status/v1/simple | grep -q '^running$'
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+
+[Service]
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=5
 
 [Install]
 WantedBy=multi-user.target

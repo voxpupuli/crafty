@@ -1,0 +1,12 @@
+[Unit]
+Description=OpenVox Minimal
+
+[Pod]
+PodName=openvox-minimal
+
+# OpenVoxServer
+PublishPort=8140:8140
+# OpenVoxDB
+PublishPort=8081:8081
+# PostgreSQL
+PublishPort=5432:5432

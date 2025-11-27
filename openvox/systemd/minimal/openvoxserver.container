@@ -1,18 +1,23 @@
 [Unit]
 Description=OpenVox Server
-Wants=podman-openvox-minimal.pod
-After=podman-openvox-minimal.pod
+After=crafty.network
+Requires=crafty.network
 
 [Container]
-Image=ghcr.io/openvoxproject/openvoxserver:latest
 ContainerName=openvoxserver
-Hostname=puppet
-Pod=openvox-minimal
-Environment=OPENVOXSERVER_HOSTNAME=puppet
-RestartPolicy=always
-PodmanArgs=\
- --health-cmd "curl -ksS https://puppet:8140/status/v1/simple | grep -q '^running$'" \
- --health-interval=10s --health-timeout=5s --health-retries=5
+# HostName=openvoxserver
+Image=ghcr.io/openvoxproject/openvoxserver:latest
+AutoUpdate=registry
+Pod=openvox-minimal.pod
+Network=crafty.network
+Label=app=crafty
+
+Environment=OPENVOXSERVER_HOSTNAME=openvoxserver
+
+HealthCmd=curl -ksS https://openvoxserver:8140/status/v1/simple | grep -q '^running$'
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
 
 [Install]
 WantedBy=multi-user.target
