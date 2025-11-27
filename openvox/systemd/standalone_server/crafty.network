@@ -1,0 +1,5 @@
+[Unit]
+Description=CRAFTY Network
+
+[Network]
+Label=app=crafty

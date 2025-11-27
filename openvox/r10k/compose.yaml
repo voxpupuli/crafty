@@ -78,7 +78,7 @@ services:
 
 ### Profile: r10k #############################################################
   r10k:
-      image: r10k-local:latest
+      image: ghcr.io/voxpupuli/r10k:latest
       environment:
         - PUPPET_CONTROL_REPO=https://github.com/voxpupuli/controlrepo.git
       volumes:
@@ -90,7 +90,7 @@ services:
 
 networks:
   default:
-    name: crafty-ha
+    name: crafty-r10k
 
 volumes:
   code_dir:
