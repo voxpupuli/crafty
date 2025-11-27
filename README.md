@@ -5,9 +5,12 @@
 
 ## Crafty Project Overview
 
-To see open issues and things which are in progress see:
-[Crafty Overview](https://github.com/orgs/voxpupuli/projects/8/views/1).
-This will give you a view over puppetdb, puppetserver and crafty itself.
+To see open issues and things which are in progress, have a look at the following project boards:
+
+- [Vox Pupuli Container Overview](https://github.com/orgs/voxpupuli/projects/8/views/1)
+- [OpenVoxProject Container Overview](https://github.com/orgs/OpenVoxProject/projects/4/views/1)
+
+This will give you an idea what is planned and what is currently worked on.
 
 ## Version schema
 
@@ -32,19 +35,19 @@ docker pull ghcr.io/openvoxproject/openvoxserver:8.8.0-latest
 | container.minor | Describes new features or refactoring with backward compatibility |
 | container.patch | Describes if minor changes or bugfixes have been implemented |
 
-## OpenVox Examples
+## Examples
+
+### ha
+
+In the [openvox/ha](openvox/ha) example, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three OpenVox compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
+
+For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](openvox/ha/README.md).
 
 ### minimal
 
 In the [openvox/minimal](openvox/minimal) example we bundle openvox-server, openvoxdb and postgres together.
 
 For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](openvox/minimal/README.md).
-
-### standalone_server
-
-In the [openvox/standalone_server](openvox/standalone_server) example a openvox-server instance is started.
-For the ones who only want to run a standalone openvox-server without openvoxdb.
-Mainly used for testing `openvoxproject/openvoxserver` builds.
 
 ### oss
 
@@ -60,47 +63,19 @@ We use the images from
 
 For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](openvox/oss/README.md).
 
-### ha
+### r10k
 
-In the [openvox/ha](openvox/ha) example, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three OpenVox compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
+In the [openvox/r10k](openvox/r10k) example we have a openvox-server with r10k setup to deploy puppet code from a git repository.
 
-For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](openvox/ha/README.md).
+### standalone_server
 
-## ⚠️ Deprecated ⚠️ - Puppet Examples
-
-### oss
-
-In the [puppet/oss](puppet/oss) example we bundle puppetserver, puppetdb, postgres, puppetboard and HDM together.
-
-We use the images from
-
-- [voxpupuli/puppetserver](https://github.com/voxpupuli/container-puppetserver)
-- [voxpupuli/puppetdb](https://github.com/voxpupuli/container-puppetdb)
-- [voxpupuli/puppetboard](https://github.com/voxpupuli/puppetboard)
-- PostgreSQL 16 Alpine
-- [betadots/hdm](https://github.com/betadots/hdm)
-
-For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/oss/README.md).
-
-### ha
-
-In the [puppet/ha](puppet/ha) example, we have established a robust infrastructure consisting of a Certificate Authority (CA) server and three Puppet compile servers. To ensure high availability and efficient distribution of workloads, we've incorporated a NGINX load balancer. Additionally, there's a dedicated test node for thorough testing and validation.
-
-For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/ha/README.md).
-
-### minimal
-
-In the [puppet/minimal](puppet/minimal) example we bundle puppetserver, puppetdb and postgres together.
-
-For a comprehensive understanding of our setup, please refer to the detailed information provided in the dedicated [README.md](puppet/minimal/README.md).
-
-### pps_only
-
-In the [puppet/pps_only](puppet/pps_only/) example a puppetserver instance is started. For the ones who only want to run a standalone puppetserver without puppetdb. Mainly used for testing `voxpupuli/puppetserver` builds.
+In the [openvox/standalone_server](openvox/standalone_server) example a openvox-server instance is started.
+For the ones who only want to run a standalone openvox-server without openvoxdb.
+Mainly used for testing `openvoxproject/openvoxserver` builds.
 
 ## Kubernetes
 
-For a Helm-Chart using these containers have a look at: [puppetlabs/puppetserver-helm-chart](https://github.com/puppetlabs/puppetserver-helm-chart)
+For a Helm-Chart using these containers have a look at: [openvoxproject/openvox-helm-chart](https://github.com/OpenVoxProject/openvox-helm-chart)
 
 ## How to release a container
 

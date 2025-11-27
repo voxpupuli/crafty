@@ -1,8 +1,0 @@
----
-lookup_options:
-  'classes':
-    merge: 'unique'
-
-hdm::version: 'v1.4.2'
-
-profile::base::manage_ssl: false
