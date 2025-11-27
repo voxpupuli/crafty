@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenVox DB
+Wants=podman-openvox-minimal.pod
+After=podman-openvox-minimal.pod
+
+[Container]
+Image=ghcr.io/openvoxproject/openvoxdb:latest
+ContainerName=openvoxdb
+Hostname=openvoxdb
+Pod=openvox-minimal
+RestartPolicy=always
+PodmanArgs=\
+ --health-cmd "curl -ksS https://openvoxdb:8081/status/v1/simple | grep -q '^running$'" \
+ --health-interval=10s --health-timeout=5s --health-retries=5
+
+[Install]
+WantedBy=multi-user.target

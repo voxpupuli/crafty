@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenVox Minimal Pod
+Wants=network-online.target
+After=network-online.target
+
+[Pod]
+PodName=openvox-minimal
+Network=crafty-ov-minimal
+PublishPort=8140:8140 # OpenVoxServer
+PublishPort=8081:8081 # OpenVoxDB
+PublishPort=5432:5432 # PostgreSQL

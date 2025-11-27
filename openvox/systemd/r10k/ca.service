@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenVox CA container
+
+[Container]
+Image=ghcr.io/openvoxproject/openvoxserver:latest
+ContainerName=openvox-ca
+Environment=OPENVOXSERVER_HOSTNAME=openvox-ca
+Environment=USE_OPENVOXDB=false
+Environment=CA_ENABLED=true
+Environment=CA_ALLOW_SUBJECT_ALT_NAMES=true
+Volume=ssl_dir:/etc/puppetlabs/puppet/ssl:Z
+Volume=ca_dir:/etc/puppetlabs/puppetserver/ca:Z
+Network=crafty-r10k
+RestartPolicy=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,21 @@
+[Unit]
+Description=PostgreSQL for OpenVoxDB
+Wants=podman-openvox-minimal.pod
+After=podman-openvox-minimal.pod
+
+[Container]
+Image=docker.io/postgres:18-alpine
+ContainerName=postgres
+Hostname=postgres
+Pod=openvox-minimal
+Environment=POSTGRES_DB=openvoxdb
+Environment=POSTGRES_USER=openvoxdb
+Environment=POSTGRES_PASSWORD=openvoxdb
+Volume=/srv/openvox/postgresql_init:/docker-entrypoint-initdb.d:Z   # Pfad anpassen
+RestartPolicy=always
+PodmanArgs=\
+ --health-cmd "sh -c 'pg_isready -U openvoxdb -d openvoxdb'" \
+ --health-interval=10s --health-timeout=3s --health-retries=3
+
+[Install]
+WantedBy=multi-user.target
