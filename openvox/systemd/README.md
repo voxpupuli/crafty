@@ -10,7 +10,7 @@ Adjust the services as needed, especially the paths to the volumes and networks.
 
 it uses netavark as the network backend, and the network configuration is defined in the `crafty.network` file included in this directory.
 
-The network unit is exceuting podman to create a network named `systemd-crafty` using the configuration from `crafty.network`. When stopped the service is stopped, but the podman network is not removed automatically, so you need to remove it manually using the command `podman network rm systemd-crafty`.
+The network unit is executing podman to create a network named `systemd-crafty` using the configuration from `crafty.network`. When stopped the service is stopped, but the podman network is not removed automatically, so you need to remove it manually using the command `podman network rm systemd-crafty`.
 
 The network is configured in the `crafty.network` systemd unit, but the podman internal network is named `systemd-crafty`.
 
