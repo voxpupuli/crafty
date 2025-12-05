@@ -1,0 +1,30 @@
+[Unit]
+Description=OpenVoxServer
+Wants=network-online.target crafty-network.service
+After=network-online.target crafty-network.service
+Requires=crafty-network.service
+
+[Container]
+ContainerName=openvoxserver
+Image=ghcr.io/openvoxproject/openvoxserver:latest
+AutoUpdate=registry
+
+Pod=openvox-minimal.pod
+Network=crafty.network
+
+Environment=OPENVOXSERVER_HOSTNAME=openvoxserver
+Environment=DNS_ALT_NAMES=openvoxserver,openvoxserver.dns.podman
+Environment=CA_HOSTNAME=openvoxserver
+
+HealthCmd=curl -ksS https://openvoxserver:8140/status/v1/simple | grep -q '^running$'
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+
+[Service]
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

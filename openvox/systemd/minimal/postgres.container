@@ -1,0 +1,35 @@
+[Unit]
+Description=PostgreSQL
+Wants=network-online.target crafty-network.service
+After=network-online.target crafty-network.service
+Requires=crafty-network.service
+
+[Container]
+ContainerName=postgres
+Image=docker.io/postgres:18-alpine
+AutoUpdate=registry
+
+Pod=openvox-minimal.pod
+Network=crafty.network
+
+Environment=POSTGRES_DB=openvoxdb
+Environment=POSTGRES_USER=openvoxdb
+Environment=POSTGRES_PASSWORD=openvoxdb
+
+# i don't like this, but whatever
+# source: https://github.com/voxpupuli/crafty/blob/e4f65983576774057ab62b3df9aa675e006d8c8e/openvox/minimal/postgresql_init/pg_trm.sql
+Volume=/srv/data/Zeug/openvox/postgresql_init:/docker-entrypoint-initdb.d:Z
+
+HealthCmd=pg_isready -d $POSTGRES_DB -U $POSTGRES_USER
+HealthInterval=30s
+HealthTimeout=15s
+HealthRetries=10
+HealthStartPeriod=15s
+
+[Service]
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
