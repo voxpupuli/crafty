@@ -1,5 +1,5 @@
 [Unit]
-Description=CRAFTY Network
+Description=The CRAFTY Network
 
 [Network]
-Label=app=crafty
+DNS=8.8.8.8

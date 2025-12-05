@@ -1,18 +1,17 @@
 [Unit]
 Description=OpenVoxDB
-After=crafty.network
-After=postgres.service
-After=openvoxserver.service
-Requires=postgres.service
-Requires=openvoxserver.service
+Wants=network-online.target crafty-network.service
+After=network-online.target crafty-network.service postgres.service openvoxserver.service
+Requires=postgres.service openvoxserver.service
+PartOf=postgres.service openvoxserver.service
 
 [Container]
 ContainerName=openvoxdb
 Image=ghcr.io/openvoxproject/openvoxdb:latest
 AutoUpdate=registry
+
 Pod=openvox-minimal.pod
 Network=crafty.network
-Label=app=crafty
 
 Environment=OPENVOXSERVER_HOSTNAME=openvoxserver
 

@@ -8,13 +8,13 @@ ContainerName=openvoxserver
 HostName=openvoxserver
 Image=ghcr.io/openvoxproject/openvoxserver:latest
 AutoUpdate=registry
-Label=app=crafty
 
 Network=crafty.network
 PublishPort=8140:8140/tcp
 
-Environment=OPENVOXSERVER_HOSTNAME=openvoxserver
 Environment=CA_HOSTNAME=openvoxserver
+Environment=DNS_ALT_NAMES=openvoxserver,openvoxserver.dns.podman
+Environment=OPENVOXSERVER_HOSTNAME=openvoxserver
 Environment=USE_OPENVOXDB=false
 
 HealthCmd=curl -ksS https://openvoxserver:8140/status/v1/simple | grep -q '^running$'

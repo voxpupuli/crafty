@@ -1,17 +1,18 @@
 # Minimal Systemd Setup for OpenVox
 
-This example demonstrates a minimal setup of OpenVox using Systemd services to manage the OpenVoxServer, OpenVoxDB, and PostgreSQL.
+This example demonstrates a standalone server setup.
 
 ## Usage
 
 ```shell
+# Start the OpenVoxServer service
 systemctl --user daemon-reload
-systemctl --user start openvox-minimal-pod.service
+systemctl --user start openvoxserver.service
 
 # Test if the service is working
 podman run --rm -it --network=systemd-crafty ghcr.io/openvoxproject/openvoxagent:latest agent -t --server openvoxserver
 
-
-systemctl --user stop openvox-minimal-pod.service
+# Stop the OpenVoxServer service
+systemctl --user stop openvoxserver.service
 podman network prune
 ```
