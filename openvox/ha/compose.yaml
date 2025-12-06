@@ -92,7 +92,7 @@ services:
 
 ### Profile: Test #############################################################
   testing:
-    image: ghcr.io/openvoxproject/openvoxagent:8.23.1-latest
+    image: ghcr.io/openvoxproject/openvoxagent:8.24.1-latest
     hostname: ha-testing
     volumes:
       - ./puppet.conf:/etc/puppetlabs/puppet/puppet.conf:ro
