@@ -79,7 +79,7 @@ services:
 
 ### Profile: LB ###############################################################
   openvox-lb:
-    image: nginx:1.29.3
+    image: nginx:1.29.4
     ports:
       - 8140:8140
     hostname: openvox-lb
