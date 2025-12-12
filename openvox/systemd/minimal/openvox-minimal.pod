@@ -1,0 +1,25 @@
+[Unit]
+Description=OpenVox Minimal
+Wants=network-online.target crafty-network.service
+After=network-online.target crafty-network.service
+Requires=crafty-network.service
+
+[Pod]
+PodName=openvox-minimal
+Network=crafty.network
+
+# OpenVoxServer
+PublishPort=8140:8140
+# OpenVoxDB
+PublishPort=8081:8081
+# PostgreSQL
+PublishPort=5432:5432
+
+
+[Service]
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

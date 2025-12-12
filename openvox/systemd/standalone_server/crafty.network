@@ -1,0 +1,5 @@
+[Unit]
+Description=The CRAFTY Network
+
+[Network]
+DNS=9.9.9.9
