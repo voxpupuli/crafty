@@ -5,13 +5,12 @@ services:
     hostname: puppet
     environment:
       OPENVOXSERVER_HOSTNAME: puppet
-      CSR_ATTRIBUTES: '{"custom_attributes": { "challengePassword": "foobar" }, "extension_requests": { "pp_project": "foo" } }'
+      CSR_ATTRIBUTES: '{ "custom_attributes": { "challengePassword": "foobar" }, "extension_requests": { "pp_project": "foo" } }'
       # For private repos, use git@github.com:user/repo.git and provide SSH keys
       # R10K_REMOTE: https://github.com/betadots/demo-control-repo.git
     volumes:
-      - openvoxserver:/opt/puppetlabs/server/data/puppetserver
-      - openvoxserver-ssl:/etc/puppetlabs/puppet/ssl
-      - openvoxserver-ca:/etc/puppetlabs/puppetserver/ca
+      - ./openvoxserver-ssl:/etc/puppetlabs/puppet/ssl
+      - ./openvoxserver-ca:/etc/puppetlabs/puppetserver/ca
       - ./openvox-code:/etc/puppetlabs/code
     restart: always
     ports:
@@ -27,8 +26,6 @@ services:
   openvoxdb:
     image: ghcr.io/openvoxproject/openvoxdb:latest
     hostname: openvoxdb
-    volumes:
-      - openvoxdb:/opt/puppetlabs/server/data/puppetdb
     restart: always
     depends_on:
       openvoxserver:
@@ -140,10 +137,6 @@ networks:
     name: crafty-oss
 
 volumes:
-  openvoxserver:
-  openvoxserver-ssl:
-  openvoxserver-ca:
-  openvoxdb:
   openvoxdb-postgres:
   agent-ssl:
   hdm-db:

@@ -1,1 +1,3 @@
-agent-ssl/
+openvoxserver-ca/
+openvoxserver-data/
+openvoxserver-ssl/

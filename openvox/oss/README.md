@@ -11,7 +11,7 @@ docker compose --profile openvox up -d
 when the openvox-profile is up and healthy, start the test-profile
 
 ```shell
-docker compose --profile test run testing agent -t
+docker compose --profile test run --remove-orphans testing agent -t
 ```
 
 ## Start hdm
@@ -25,16 +25,7 @@ then open up: <http://0.0.0.0:3000/>
 ## cleanup
 
 ```shell
-docker compose --profile openvox down
-docker compose --profile hdm down
-docker compose --profile test down
-
-docker volume rm oss_openvoxserver
-docker volume rm oss_openvoxserver-ssl
-docker volume rm oss_openvoxserver-ca
-docker volume rm oss_openvoxdb
-docker volume rm oss_openvoxdb-postgres
-docker volume rm oss_agent-ssl
+./clean.sh
 ```
 
 ## Generate additional certificates
