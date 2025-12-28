@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 docker compose --profile openvox down
 docker compose --profile hdm down

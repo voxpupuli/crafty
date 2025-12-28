@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 docker compose --profile test down
 docker compose --profile lb down
