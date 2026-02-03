@@ -34,7 +34,7 @@ After the OpenVox stack is running, execute the following commant to generate an
 It will be put in the openvoxserver-ssl volume, or any other volume you may have mounted for `/etc/puppetlabs/puppet/ssl`.
 
 ```bash
-docker exec oss-puppet-1 puppetserver ca generate --certname puppetboard
+docker exec openvox-openvoxserver-1 puppetserver ca generate --certname puppetboard
 ```
 
 Output:
@@ -53,7 +53,7 @@ But in general this is a bad idea, but for testing this might work.
 For the puppetboard, one also can specify the certs as base64 strings. To get the strings do:
 
 ```bash
-docker exec oss-puppet-1 cat /etc/puppetlabs/puppet/ssl/certs/ca.pem | base64
-docker exec oss-puppet-1 cat /etc/puppetlabs/puppet/ssl/certs/puppetboard.pem | base64
-docker exec oss-puppet-1 cat /etc/puppetlabs/puppet/ssl/private_keys/puppetboard.pem | base64
+docker exec openvox-openvoxserver-1 cat /etc/puppetlabs/puppet/ssl/certs/ca.pem | base64
+docker exec openvox-openvoxserver-1 cat /etc/puppetlabs/puppet/ssl/certs/puppetboard.pem | base64
+docker exec openvox-openvoxserver-1 cat /etc/puppetlabs/puppet/ssl/private_keys/puppetboard.pem | base64
 ```
