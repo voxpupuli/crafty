@@ -14,7 +14,7 @@ when the openvox-profile is up and healthy, start the test-profile
 docker compose --profile test run --remove-orphans testing agent -t
 ```
 
-## Start hdm
+## Start hdm (hiera data manager)
 
 ```shell
 docker compose --profile hdm up -d
@@ -30,7 +30,7 @@ then open up: <http://0.0.0.0:3000/>
 
 ## Generate additional certificates
 
-After the OpenVox stack is running, execute the following commant to generate an additional certificate.
+After the OpenVox stack is running, execute the following command to generate an additional certificate.
 It will be put in the openvoxserver-ssl volume, or any other volume you may have mounted for `/etc/puppetlabs/puppet/ssl`.
 
 ```bash
