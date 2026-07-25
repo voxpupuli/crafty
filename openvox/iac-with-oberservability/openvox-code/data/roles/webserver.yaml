@@ -1,0 +1,6 @@
+---
+# Webserver role - Apache with monitoring
+# Applied to nodes with pp_role=webserver in csr_attributes.yaml
+classes:
+  - profile::apache
+  - profile::monitoring::apache_exporter

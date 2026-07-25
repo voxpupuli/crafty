@@ -1,0 +1,50 @@
+{
+  "editable": true,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Total Services Online",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 0 },
+      "datasource": "VictoriaMetrics",
+      "targets": [
+        { "expr": "sum(up)", "refId": "A" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "green", "value": 1 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "table",
+      "title": "Service Status Detail",
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 8 },
+      "datasource": "VictoriaMetrics",
+      "targets": [
+        { "expr": "up", "format": "table", "refId": "A" }
+      ],
+      "fieldConfig": {
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Value" },
+            "properties": [
+              { "id": "mappings", "value": [
+                { "type": "value", "options": { "0": { "text": "OFFLINE", "color": "red" }, "1": { "text": "ONLINE", "color": "green" } } }
+              ]}
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "title": "Health Overview",
+  "uid": "health-overview",
+  "version": 1
+}

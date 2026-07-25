@@ -1,0 +1,5 @@
+---
+# Monitoring role - Metrics collection server
+# Applied to nodes with pp_role=monitoring_scraper in csr_attributes.yaml
+classes:
+  - profile::monitoring::vmagent

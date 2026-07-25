@@ -1,0 +1,9 @@
+---
+# Common hiera data for all nodes
+classes:
+  - profile::base
+
+# Apache settings
+apache::default_mods: false
+apache::default_vhost: true
+apache::mpm_module: 'prefork'

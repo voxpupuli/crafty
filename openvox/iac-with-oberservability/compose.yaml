@@ -1,0 +1,170 @@
+---
+services:
+  openvoxserver:
+    image: ghcr.io/openvoxproject/openvoxserver:latest
+    hostname: puppet
+    container_name: openvoxserver
+    environment:
+      OPENVOXSERVER_HOSTNAME: puppet
+    volumes:
+      - ./openvoxserver-ssl:/etc/puppetlabs/puppet/ssl
+      - ./openvoxserver-ca:/etc/puppetlabs/puppetserver/ca
+      - ./openvox-code:/etc/puppetlabs/code/environments/production
+    restart: always
+    ports:
+      - 8140:8140
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -ksS https://puppet:8140/status/v1/simple | grep -q '^running$'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  openvoxdb:
+    image: ghcr.io/openvoxproject/openvoxdb:latest
+    hostname: openvoxdb
+    container_name: openvoxdb
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+      openvoxserver:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -ksS https://openvoxdb:8081/status/v1/simple | grep -q '^running$'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 8081:8081
+
+  postgres:
+    image: docker.io/postgres:18-alpine
+    hostname: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=openvoxdb
+      - POSTGRES_USER=openvoxdb
+      - POSTGRES_PASSWORD=openvoxdb
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U openvoxdb -d openvoxdb'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - ./postgresql-init:/docker-entrypoint-initdb.d
+    restart: always
+
+  # Apache web server 1 with apache_exporter
+  webserver1:
+    image: ubuntu:24.04
+    container_name: webserver1
+    hostname: webserver1.local
+    depends_on:
+      openvoxdb:
+        condition: service_healthy
+    ports:
+      - "9001:80"      # Apache
+    volumes:
+      - ./scripts/webserver-entrypoint.sh:/entrypoint.sh
+    command: bash /entrypoint.sh
+
+  # Apache web server 2 with apache_exporter
+#  webserver2:
+#    image: ubuntu:24.04
+#    container_name: webserver2
+#    hostname: webserver2.local
+#    depends_on:
+#      openvoxdb:
+#        condition: service_healthy
+#    ports:
+#      - "9002:80"      # Apache
+#    volumes:
+#      - ./scripts/webserver-entrypoint.sh:/entrypoint.sh
+#    command: bash /entrypoint.sh
+
+  # Apache web server 3 with apache_exporter
+#  webserver3:
+#    image: ubuntu:24.04
+#    container_name: webserver3
+#    hostname: webserver3.local
+#    depends_on:
+#      openvoxdb:
+#        condition: service_healthy
+#    ports:
+#      - "9003:80"      # Apache
+#    volumes:
+#      - ./scripts/webserver-entrypoint.sh:/entrypoint.sh
+#    command: bash /entrypoint.sh
+
+  victoria-metrics:
+    image: victoriametrics/victoria-metrics:latest
+    container_name: victoria-metrics
+    hostname: victoria-metrics.local
+    ports:
+      - "8428:8428"
+    command:
+      - '--storageDataPath=/storage'
+      - '--httpListenAddr=:8428'
+      - '--retentionPeriod=12'
+    volumes:
+      - victoria-metrics-data:/storage
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://victoria-metrics:8428/-/healthy"]
+      start_period: 20s
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      openvoxserver:
+        condition: service_healthy
+
+  vmagent:
+    image: ubuntu:24.04
+    container_name: vmagent
+    hostname: vmagent.local
+    ports:
+      - "8429:8429"
+    volumes:
+      - ./scripts/vmagent-entrypoint.sh:/entrypoint.sh
+      - ./prometheus-vmagent.yaml:/etc/prometheus/prometheus.yaml
+      - vmagent-data:/vmagentdata
+      - vmagent-targets:/etc/vmagent/targets.d
+    command: bash /entrypoint.sh
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8429/-/healthy >/dev/null"]
+      start_period: 30s
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      openvoxserver:
+        condition: service_healthy
+      victoria-metrics:
+        condition: service_healthy
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    hostname: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=victoriametrics-metrics-datasource
+    volumes:
+      - ./grafana-provisioning:/etc/grafana/provisioning
+    depends_on:
+      victoria-metrics:
+        condition: service_healthy
+
+networks:
+  default:
+    name: iac
+
+volumes:
+  victoria-metrics-data:
+  vmagent-data:
+  vmagent-targets:

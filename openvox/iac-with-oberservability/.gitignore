@@ -1,0 +1,6 @@
+/openvoxserver-ca/
+/openvoxserver-ssl/
+/openvox-code/.bundle
+/openvox-code/vendor
+/openvox-code/Gemfile.lock
+/openvox-code/modules/
