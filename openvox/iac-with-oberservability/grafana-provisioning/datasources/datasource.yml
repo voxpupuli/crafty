@@ -1,0 +1,12 @@
+apiVersion: 1
+datasources:
+  - name: VictoriaMetrics
+    type: prometheus
+    url: http://victoria-metrics:8428
+    access: proxy
+    isDefault: true
+    # This specifically satisfies the Apache dashboard's hardcoded requirement
+    uid: "DS_LOCALHOST"
+    jsonData:
+      # Optional: Helps with MetricsQL support if using the VM plugin
+      prometheusType: "VictoriaMetrics"

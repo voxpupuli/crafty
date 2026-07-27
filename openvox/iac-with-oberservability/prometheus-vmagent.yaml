@@ -1,0 +1,43 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    cluster: 'openvox-demo'
+    environment: 'development'
+
+scrape_configs:
+  # VictoriaMetrics self-monitoring
+  - job_name: 'victoria-metrics'
+    static_configs:
+      - targets: ['victoria-metrics:8428']
+        labels:
+          service: 'victoria-metrics'
+
+  # vmagent self-monitoring
+  - job_name: 'vmagent'
+    static_configs:
+      - targets: ['vmagent:8429']
+        labels:
+          service: 'vmagent'
+
+  # Grafana monitoring
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['grafana:3000']
+        labels:
+          service: 'grafana'
+    metrics_path: '/metrics'
+
+  # File-based service discovery for OpenVox-exported targets
+  # This will automatically discover apache_exporter instances with mTLS
+  - job_name: 'openvox-exported-targets'
+    file_sd_configs:
+      - files:
+          - '/etc/vmagent/targets.d/*.yaml'
+
+    # mTLS configuration for connecting to Caddy-protected exporters
+    scheme: https
+    tls_config:
+      ca_file: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+      cert_file: /etc/puppetlabs/puppet/ssl/certs/vmagent.local.pem
+      key_file: /etc/puppetlabs/puppet/ssl/private_keys/vmagent.local.pem
+      insecure_skip_verify: false

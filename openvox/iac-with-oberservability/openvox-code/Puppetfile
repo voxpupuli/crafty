@@ -1,0 +1,14 @@
+# Puppetfile - manages module dependencies
+forge 'https://forge.puppet.com'
+
+# Core module
+mod 'puppetlabs-stdlib', '9.7.0'
+
+# Apache module
+mod 'puppetlabs-apache', '13.1.0'
+
+# Archive module for downloading binaries
+mod 'puppet-archive', '8.1.0'
+
+# Dependencies of puppetlabs-apache
+mod 'puppetlabs-concat', '9.1.0'
