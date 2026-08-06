@@ -122,7 +122,7 @@ services:
         condition: service_healthy
 
   vmagent:
-    image: ubuntu:24.04
+    image: alpine:latest
     container_name: vmagent
     hostname: vmagent.local
     ports:
@@ -132,7 +132,7 @@ services:
       - ./prometheus-vmagent.yaml:/etc/prometheus/prometheus.yaml
       - vmagent-data:/vmagentdata
       - vmagent-targets:/etc/vmagent/targets.d
-    command: bash /entrypoint.sh
+    command: sh /entrypoint.sh
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8429/-/healthy >/dev/null"]
       start_period: 30s
@@ -140,6 +140,8 @@ services:
       timeout: 10s
       retries: 3
     depends_on:
+      openvoxdb:
+        condition: service_healthy
       openvoxserver:
         condition: service_healthy
       victoria-metrics:

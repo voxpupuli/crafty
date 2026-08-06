@@ -1,19 +1,20 @@
-#!/bin/bash
+#!/bin/sh
 
-set -eou pipefail
+set -eu -o pipefail
 
-export DEBIAN_FRONTEND=noninteractive
-apt-get update
-apt-get install -y curl
-curl -LR https://apt.voxpupuli.org/openvox8-release-ubuntu24.04.deb -o /tmp/openvox8-release-ubuntu24.04.deb
-dpkg -i /tmp/openvox8-release-ubuntu24.04.deb
-apt-get update
-apt-get install -y openvox-agent
+# Install required packages
+apk update
+apk add --no-cache curl tar ruby ruby-dev ruby-racc ruby-syslog shadow util-linux build-base
 
-/opt/puppetlabs/bin/puppet config set server puppet --section main
-/opt/puppetlabs/bin/puppet config set runinterval 60 --section main
+# openvox-agent has no Alpine package; install openvox gem (compatible with OpenVox server)
+gem install openvox --no-document
 
 mkdir -p /etc/puppetlabs/puppet
+touch /etc/puppetlabs/puppet/puppet.conf
+
+puppet config set server puppet --section main
+puppet config set runinterval 60 --section main
+
 cat > /etc/puppetlabs/puppet/csr_attributes.yaml << 'EOF'
 ---
 extension_requests:
@@ -21,9 +22,9 @@ extension_requests:
 EOF
 
 echo 'Contacting OpenVox Server...'
-/opt/puppetlabs/bin/puppet ssl bootstrap
+puppet ssl bootstrap
 echo 'Starting Puppet agent runs...'
 while true; do
-  /opt/puppetlabs/bin/puppet agent --test --detailed-exitcodes || [ $? -eq 2 ] || true
+  puppet agent --test --detailed-exitcodes || [ $? -eq 2 ] || true
   sleep 300
 done
