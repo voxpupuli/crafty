@@ -2,14 +2,6 @@
 
 set -eou pipefail
 
-export DEBIAN_FRONTEND=noninteractive
-apt-get update
-apt-get install -y curl
-curl -LR https://apt.voxpupuli.org/openvox8-release-ubuntu24.04.deb -o /tmp/openvox8-release-ubuntu24.04.deb
-dpkg -i /tmp/openvox8-release-ubuntu24.04.deb
-apt-get update
-apt-get install -y openvox-agent
-
 /opt/puppetlabs/bin/puppet config set server puppet --section main
 /opt/puppetlabs/bin/puppet config set runinterval 60 --section main
 
