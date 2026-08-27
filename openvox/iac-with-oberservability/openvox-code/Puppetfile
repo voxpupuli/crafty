@@ -2,7 +2,7 @@
 forge 'https://forge.puppet.com'
 
 # Core module
-mod 'puppetlabs-stdlib', '9.7.0'
+mod 'puppetlabs-stdlib', '10.0.2'
 
 # Apache module
 mod 'puppetlabs-apache', '13.1.0'
