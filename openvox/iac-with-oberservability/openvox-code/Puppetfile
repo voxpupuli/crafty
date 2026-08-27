@@ -11,4 +11,4 @@ mod 'puppetlabs-apache', '13.3.0'
 mod 'puppet-archive', '8.1.0'
 
 # Dependencies of puppetlabs-apache
-mod 'puppetlabs-concat', '9.1.0'
+mod 'puppetlabs-concat', '10.0.1'
