@@ -59,7 +59,10 @@ services:
 
   # Apache web server 1 with apache_exporter
   webserver1:
-    image: ubuntu:24.04
+    build:
+      context: .
+      dockerfile: ./scripts/webserver.Dockerfile
+    image: iac-webserver1:ubuntu24
     container_name: webserver1
     hostname: webserver1.local
     depends_on:
@@ -67,13 +70,13 @@ services:
         condition: service_healthy
     ports:
       - "9001:80"      # Apache
-    volumes:
-      - ./scripts/webserver-entrypoint.sh:/entrypoint.sh
-    command: bash /entrypoint.sh
 
   # Apache web server 2 with apache_exporter
 #  webserver2:
-#    image: ubuntu:24.04
+#    build:
+#      context: .
+#      dockerfile: ./scripts/webserver.Dockerfile
+#    image: iac-webserver1:ubuntu24
 #    container_name: webserver2
 #    hostname: webserver2.local
 #    depends_on:
@@ -81,13 +84,13 @@ services:
 #        condition: service_healthy
 #    ports:
 #      - "9002:80"      # Apache
-#    volumes:
-#      - ./scripts/webserver-entrypoint.sh:/entrypoint.sh
-#    command: bash /entrypoint.sh
 
   # Apache web server 3 with apache_exporter
 #  webserver3:
-#    image: ubuntu:24.04
+#    build:
+#      context: .
+#      dockerfile: ./scripts/webserver.Dockerfile
+#    image: iac-webserver1:ubuntu24
 #    container_name: webserver3
 #    hostname: webserver3.local
 #    depends_on:
@@ -95,9 +98,6 @@ services:
 #        condition: service_healthy
 #    ports:
 #      - "9003:80"      # Apache
-#    volumes:
-#      - ./scripts/webserver-entrypoint.sh:/entrypoint.sh
-#    command: bash /entrypoint.sh
 
   victoria-metrics:
     image: victoriametrics/victoria-metrics:latest
@@ -122,17 +122,18 @@ services:
         condition: service_healthy
 
   vmagent:
-    image: alpine:latest
+    build:
+      context: .
+      dockerfile: ./scripts/vmagent.Dockerfile
+    image: iac-vmagent:alpine
     container_name: vmagent
     hostname: vmagent.local
     ports:
       - "8429:8429"
     volumes:
-      - ./scripts/vmagent-entrypoint.sh:/entrypoint.sh
       - ./prometheus-vmagent.yaml:/etc/prometheus/prometheus.yaml
       - vmagent-data:/vmagentdata
       - vmagent-targets:/etc/vmagent/targets.d
-    command: sh /entrypoint.sh
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8429/-/healthy >/dev/null"]
       start_period: 30s

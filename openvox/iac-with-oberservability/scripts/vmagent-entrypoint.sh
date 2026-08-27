@@ -2,13 +2,6 @@
 
 set -eu -o pipefail
 
-# Install required packages
-apk update
-apk add --no-cache curl tar ruby ruby-dev ruby-racc ruby-syslog shadow util-linux build-base
-
-# openvox-agent has no Alpine package; install openvox gem (compatible with OpenVox server)
-gem install openvox --no-document
-
 mkdir -p /etc/puppetlabs/puppet
 touch /etc/puppetlabs/puppet/puppet.conf
 
