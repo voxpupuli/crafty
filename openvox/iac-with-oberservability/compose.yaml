@@ -62,7 +62,7 @@ services:
     build:
       context: .
       dockerfile: ./scripts/webserver.Dockerfile
-    image: iac-webserver1:ubuntu24
+    image: iac-webserver1:ubuntu
     container_name: webserver1
     hostname: webserver1.local
     depends_on:
@@ -76,7 +76,7 @@ services:
 #    build:
 #      context: .
 #      dockerfile: ./scripts/webserver.Dockerfile
-#    image: iac-webserver1:ubuntu24
+#    image: iac-webserver1:ubuntu
 #    container_name: webserver2
 #    hostname: webserver2.local
 #    depends_on:
@@ -90,7 +90,7 @@ services:
 #    build:
 #      context: .
 #      dockerfile: ./scripts/webserver.Dockerfile
-#    image: iac-webserver1:ubuntu24
+#    image: iac-webserver1:ubuntu
 #    container_name: webserver3
 #    hostname: webserver3.local
 #    depends_on:
