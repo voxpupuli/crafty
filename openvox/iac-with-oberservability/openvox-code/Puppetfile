@@ -5,7 +5,7 @@ forge 'https://forge.puppet.com'
 mod 'puppetlabs-stdlib', '10.0.2'
 
 # Apache module
-mod 'puppetlabs-apache', '13.3.0'
+mod 'puppetlabs-apache', '13.4.0'
 
 # Archive module for downloading binaries
 mod 'puppet-archive', '8.1.0'
