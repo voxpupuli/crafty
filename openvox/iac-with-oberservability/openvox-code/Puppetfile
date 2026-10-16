@@ -8,7 +8,7 @@ mod 'puppetlabs-stdlib', '10.1.0'
 mod 'puppetlabs-apache', '13.4.0'
 
 # Archive module for downloading binaries
-mod 'puppet-archive', '8.1.0'
+mod 'puppet-archive', '9.0.0'
 
 # Dependencies of puppetlabs-apache
 mod 'puppetlabs-concat', '10.1.0'
