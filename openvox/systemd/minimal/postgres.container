@@ -6,7 +6,7 @@ Requires=crafty-network.service
 
 [Container]
 ContainerName=postgres
-Image=docker.io/postgres:18-alpine
+Image=docker.io/postgres:19-alpine
 AutoUpdate=registry
 
 Pod=openvox-minimal.pod
